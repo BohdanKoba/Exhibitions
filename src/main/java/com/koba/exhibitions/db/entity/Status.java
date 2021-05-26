@@ -6,7 +6,7 @@ public class Status implements Serializable {
     private static final long serialVersionUID = 6142454190892499476L;
 
     private Integer id;
-    private String name;
+    private String statusName;
 
     public Integer getId() {
         return id;
@@ -16,36 +16,19 @@ public class Status implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getStatusName() {
+        return statusName;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Status status = (Status) o;
-        return id.equals(status.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return id.hashCode();
+    public void setStatusName(String statusName) {
+        this.statusName = statusName;
     }
 
     @Override
     public String toString() {
         return "Status{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", statusName='" + statusName + '\'' +
                 '}';
     }
 

@@ -8,7 +8,7 @@ public class Exhibition implements Serializable {
     private static final long serialVersionUID = 3375771738166093679L;
 
     private Integer id;
-    private String name;
+    private String title;
     private String description;
     private Integer price;
     private LocalDate startDate;
@@ -26,12 +26,12 @@ public class Exhibition implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {
@@ -99,27 +99,10 @@ public class Exhibition implements Serializable {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Exhibition exhibition = (Exhibition) o;
-        return id.equals(exhibition.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return id.hashCode();
-    }
-
-    @Override
     public String toString() {
         return "Exhibition{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", startDate=" + startDate +

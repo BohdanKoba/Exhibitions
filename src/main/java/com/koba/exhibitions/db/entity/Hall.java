@@ -6,7 +6,7 @@ public class Hall implements Serializable {
     private static final long serialVersionUID = -4453144475600554739L;
 
     private Integer id;
-    private String name;
+    private String hallName;
 
     public Integer getId() {
         return id;
@@ -16,36 +16,19 @@ public class Hall implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getHallName() {
+        return hallName;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Hall hall = (Hall) o;
-        return id.equals(hall.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return id.hashCode();
+    public void setHallName(String hallName) {
+        this.hallName = hallName;
     }
 
     @Override
     public String toString() {
         return "Hall{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", hallName='" + hallName + '\'' +
                 '}';
     }
 

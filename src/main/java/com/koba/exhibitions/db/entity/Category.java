@@ -6,7 +6,7 @@ public class Category implements Serializable {
     private static final long serialVersionUID = 3951976055201869261L;
 
     private Integer id;
-    private String name;
+    private String categoryName;
 
     public Integer getId() {
         return id;
@@ -16,36 +16,19 @@ public class Category implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Category category = (Category) o;
-        return id.equals(category.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return id.hashCode();
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     @Override
     public String toString() {
         return "Category{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", categoryName='" + categoryName + '\'' +
                 '}';
     }
 

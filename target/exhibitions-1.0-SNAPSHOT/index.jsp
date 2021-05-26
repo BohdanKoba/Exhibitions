@@ -2,12 +2,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JSP - Hello World</title>
+    <title>Hello World</title>
 </head>
 <body>
+<form action="controller" method="get">
+    <input type="hidden" name="command" value="hello"/>
+</form>
 <h1><%= "Hello World!" %>
-</h1>
-<br/>
-<a href="hello-servlet">Hello Servlet</a>
 </body>
 </html>
