@@ -1,12 +1,14 @@
 package com.koba.exhibitions.db.dao.impl;
 
-import static com.koba.exhibitions.db.dao.Fields.*;
-import static com.koba.exhibitions.db.dao.connection.Connector.close;
+import static com.koba.exhibitions.db.dao.connection.ConnectionPool.close;
+import static com.koba.exhibitions.db.dao.util.Fields.*;
+import static com.koba.exhibitions.db.dao.util.SQLQueries.*;
 
-import com.koba.exhibitions.db.dao.DBException;
-import com.koba.exhibitions.db.dao.connection.Connector;
-import com.koba.exhibitions.db.dao.interfaces.AccountDAO;
-import com.koba.exhibitions.db.entity.Account;
+import com.koba.exhibitions.db.dao.util.DBException;
+import com.koba.exhibitions.db.dao.connection.ConnectionPool;
+import com.koba.exhibitions.db.dao.AccountDAO;
+import com.koba.exhibitions.db.bean.Account;
+import com.koba.exhibitions.db.bean.RegistrationData;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -19,28 +21,22 @@ import java.sql.SQLException;
 public class AccountDAOImpl implements AccountDAO {
     private static final Logger logger = LogManager.getLogger(AccountDAOImpl.class);
 
-    private static final String CREATE_ACCOUNT = "INSERT INTO account (login, password, first_name, last_name, email) VALUES (?, ?, ?, ?, ?)";
-    private static final String GET_ACCOUNT_BY_LOGIN_AND_PASSWORD = "SELECT * FROM account WHERE login=? AND password=?";
-    private static final String GET_ACCOUNT_BY_LOGIN = "SELECT * FROM account WHERE login=?";
-    private static final String UPDATE_ACCOUNT_INFO = "UPDATE account SET password=?, first_name=?, last_name=?, email=? WHERE id=?";
-    private static final String DELETE_ACCOUNT = "DELETE FROM account WHERE id=?";
-
-    private final Connector connector = Connector.getInstance();
+    private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     @Override
-    public void registerAccount(Account account) throws DBException {
+    public void registerAccount(RegistrationData data) throws DBException {
         Connection con = null;
         PreparedStatement pstmt = null;
 
         try {
-            con = connector.getConnection();
+            con = connectionPool.getConnection();
             pstmt = con.prepareStatement(CREATE_ACCOUNT);
             int k = 1;
-            pstmt.setString(k++, account.getLogin());
-            pstmt.setString(k++, account.getPassword());
-            pstmt.setString(k++, account.getFirstName());
-            pstmt.setString(k++, account.getLastName());
-            pstmt.setString(k++, account.getEmail());
+            pstmt.setString(k++, data.getLogin());
+            pstmt.setString(k++, data.getPassword());
+            pstmt.setString(k++, data.getFirstName());
+            pstmt.setString(k++, data.getLastName());
+            pstmt.setString(k++, data.getEmail());
             pstmt.executeUpdate();
             logger.info("New account has been successfully created");
         } catch (SQLException ex) {
@@ -60,12 +56,15 @@ public class AccountDAOImpl implements AccountDAO {
         ResultSet rs = null;
 
         try {
-            con = connector.getConnection();
+            con = connectionPool.getConnection();
             pstmt = con.prepareStatement(GET_ACCOUNT_BY_LOGIN_AND_PASSWORD);
             int k = 1;
             pstmt.setString(k++, login);
             pstmt.setString(k++, password);
-            pstmt.executeQuery();
+            rs = pstmt.executeQuery();
+            if (!rs.next()) {
+                throw new SQLException();
+            }
             account = mapAccount(rs);
             logger.info("Account has been successfully authorized");
         } catch (SQLException ex) {
@@ -86,10 +85,13 @@ public class AccountDAOImpl implements AccountDAO {
         ResultSet rs = null;
 
         try {
-            con = connector.getConnection();
+            con = connectionPool.getConnection();
             pstmt = con.prepareStatement(GET_ACCOUNT_BY_LOGIN);
             pstmt.setString(1, login);
             rs = pstmt.executeQuery();
+            if (!rs.next()) {
+                throw new SQLException();
+            }
             account = mapAccount(rs);
             logger.info("Account has been successfully obtained");
         } catch (SQLException ex) {
@@ -107,7 +109,7 @@ public class AccountDAOImpl implements AccountDAO {
         PreparedStatement pstmt = null;
 
         try {
-            con = connector.getConnection();
+            con = connectionPool.getConnection();
             pstmt = con.prepareStatement(UPDATE_ACCOUNT_INFO);
             int k = 1;
             pstmt.setString(k++, account.getLogin());
@@ -132,7 +134,7 @@ public class AccountDAOImpl implements AccountDAO {
         PreparedStatement pstmt = null;
 
         try {
-            con = connector.getConnection();
+            con = connectionPool.getConnection();
             pstmt = con.prepareStatement(DELETE_ACCOUNT);
             pstmt.setString(1, account.getLogin());
             pstmt.executeUpdate();
@@ -147,15 +149,15 @@ public class AccountDAOImpl implements AccountDAO {
 
     private Account mapAccount(ResultSet rs) throws SQLException {
         Account account = new Account();
-        while (rs.next()) {
-            account.setId(rs.getInt(COLUMN_ID));
-            account.setLogin(rs.getString(ACCOUNT_COLUMN_LOGIN));
-            account.setPassword(rs.getString(ACCOUNT_COLUMN_PASSWORD));
-            account.setFirstName(rs.getString(ACCOUNT_COLUMN_FIRST_NAME));
-            account.setLastName(rs.getString(ACCOUNT_COLUMN_LAST_NAME));
-            account.setEmail(rs.getString(ACCOUNT_COLUMN_EMAIL));
-            account.setRoleId(rs.getInt(ACCOUNT_COLUMN_ROLE_ID));
-        }
+
+        account.setId(rs.getInt(COLUMN_ID));
+        account.setLogin(rs.getString(ACCOUNT_COLUMN_LOGIN));
+        account.setPassword(rs.getString(ACCOUNT_COLUMN_PASSWORD));
+        account.setFirstName(rs.getString(ACCOUNT_COLUMN_FIRST_NAME));
+        account.setLastName(rs.getString(ACCOUNT_COLUMN_LAST_NAME));
+        account.setEmail(rs.getString(ACCOUNT_COLUMN_EMAIL));
+        account.setRole(rs.getString(ACCOUNT_COLUMN_ROLE));
+
         return account;
     }
 

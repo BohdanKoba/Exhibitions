@@ -1,13 +1,13 @@
 package com.koba.exhibitions.db.dao.impl;
 
-import static com.koba.exhibitions.db.dao.Fields.CATEGORY_COLUMN_CATEGORY_NAME;
-import static com.koba.exhibitions.db.dao.Fields.COLUMN_ID;
-import static com.koba.exhibitions.db.dao.connection.Connector.close;
+import static com.koba.exhibitions.db.dao.util.Fields.CATEGORY_COLUMN_CATEGORY_NAME;
+import static com.koba.exhibitions.db.dao.util.Fields.COLUMN_ID;
+import static com.koba.exhibitions.db.dao.connection.ConnectionPool.close;
 
-import com.koba.exhibitions.db.dao.DBException;
-import com.koba.exhibitions.db.dao.connection.Connector;
-import com.koba.exhibitions.db.dao.interfaces.CategoryDAO;
-import com.koba.exhibitions.db.entity.Category;
+import com.koba.exhibitions.db.dao.util.DBException;
+import com.koba.exhibitions.db.dao.connection.ConnectionPool;
+import com.koba.exhibitions.db.dao.CategoryDAO;
+import com.koba.exhibitions.db.bean.Category;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -23,7 +23,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 
     private static final String GET_ALL_CATEGORIES = "SELECT * FROM cat ORDER BY id";
 
-    private final Connector connector = Connector.getInstance();
+    private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     @Override
     public List<Category> getAllCategories() throws DBException {
@@ -34,7 +34,7 @@ public class CategoryDAOImpl implements CategoryDAO {
         ResultSet rs = null;
 
         try {
-            con = connector.getConnection();
+            con = connectionPool.getConnection();
             pstmt = con.prepareStatement(GET_ALL_CATEGORIES);
             rs = pstmt.executeQuery();
             categories = mapCategoryList(rs);

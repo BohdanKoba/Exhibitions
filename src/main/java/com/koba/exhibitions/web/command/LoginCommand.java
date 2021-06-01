@@ -1,37 +1,37 @@
 package com.koba.exhibitions.web.command;
 
-import com.koba.exhibitions.db.dao.DBException;
-import com.koba.exhibitions.db.dao.impl.AccountDAOImpl;
-import com.koba.exhibitions.db.entity.Account;
+import com.koba.exhibitions.db.dao.util.DBException;
+import com.koba.exhibitions.db.dao.factory.DAOFactory;
+import com.koba.exhibitions.db.dao.AccountDAO;
+import com.koba.exhibitions.db.bean.Account;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class LoginCommand implements Command {
-    private static final long serialVersionUID = -122987195179934623L;
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("LoginCommand#execute");
-        String address = "login.jsp";
-
         String login = request.getParameter("login");
-        System.out.println("login ==> " + login);
-
         String password = request.getParameter("password");
 
-        AccountDAOImpl accountDAO = new AccountDAOImpl();
-        Account account = null;
+        DAOFactory factory = DAOFactory.getInstance();
+        AccountDAO accountDAO = factory.getAccountDAO();
+
+        Account account;
+
         try {
             account = accountDAO.authorizeAccount(login, password);
         } catch (DBException e) {
-            address = "hello.jsp";
-            System.out.println("WRONG LOGIN OR PASSWORD");
+            // TODO write message on a screen
+            return "login.jsp";
         }
+        HttpSession session = request.getSession();
+        session.setMaxInactiveInterval(-1);
+        session.setAttribute("account", account);
+        session.setAttribute("loggedIn", true);
 
-        System.out.println("ACCOUNT ==> " + account);
-
-        return address;
+        return "main.jsp";
     }
 
 }

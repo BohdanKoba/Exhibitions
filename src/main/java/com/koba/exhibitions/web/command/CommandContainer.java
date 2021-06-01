@@ -16,21 +16,17 @@ public class CommandContainer {
     private static final Map<String, Command> commands = new HashMap<>();
 
     static {
-        // common commands
         commands.put("login", new LoginCommand());
-
-        // client commands
-//        commands.put("listMenu", new ListMenuCommand());
-
-        // admin commands
-//        commands.put("listOrders", new ListOrdersCommand());
+        commands.put("registration", new RegistrationCommand());
+        commands.put("setLanguage", new SetLanguageCommand());
+        commands.put("exhibitionsList", new ExhibitionsList());
 
         log.debug("Command container was successfully initialized");
         log.trace("Number of commands --> " + commands.size());
     }
 
     /**
-     * Returns command object with the given name.
+     * Returns a command object with the given name.
      *
      * @param commandName Name of the command.
      * @return Command object.
@@ -38,7 +34,7 @@ public class CommandContainer {
     public static Command get(String commandName) {
         if (commandName == null || !commands.containsKey(commandName)) {
             log.trace("Command not found, name --> " + commandName);
-            return commands.get("hello");                                    //TODO rewrite it !
+            return commands.get("error");
         }
 
         return commands.get(commandName);

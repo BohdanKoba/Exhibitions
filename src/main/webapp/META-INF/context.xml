@@ -7,5 +7,5 @@
               username="root" password="password"
               driverClassName="com.mysql.cj.jdbc.Driver"
               defaultTransactionIsolation="READ_COMMITTED"
-              url="jdbc:mysql://localhost:3306/exhibitions?"/>
+              url="jdbc:mysql://localhost:3306/exhibitions"/>
 </Context>
