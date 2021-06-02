@@ -16,7 +16,7 @@ public class SQLQueries {
             "end_date, opening_time, closing_time, category_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     public static final String GET_EXHIBITION_BY_ID = "SELECT * FROM exhibition WHERE id=?";
     public static final String GET_ALL_EXHIBITIONS = "SELECT * FROM exhibition ORDER BY id";
-    public static final String GET_AVAILABLE_EXHIBITIONS = "SELECT * FROM exhibition WHERE status =? ORDER BY id";
+    public static final String GET_AVAILABLE_EXHIBITIONS = "SELECT * FROM exhibition WHERE status='active' ORDER BY id";
     public static final String UPDATE_EXHIBITION_STATUS = "UPDATE exhibition SET status=? WHERE id=?";
 
 

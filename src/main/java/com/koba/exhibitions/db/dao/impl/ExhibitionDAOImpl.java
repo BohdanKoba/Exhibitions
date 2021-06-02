@@ -8,12 +8,7 @@ import com.koba.exhibitions.db.dao.util.DBException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -119,10 +114,10 @@ public class ExhibitionDAOImpl implements ExhibitionDAO {
         exhibition.setTitle(rs.getString(EXHIBITION_COLUMN_TITLE));
         exhibition.setDescription(rs.getString(EXHIBITION_COLUMN_DESCRIPTION));
         exhibition.setPrice(rs.getInt(EXHIBITION_COLUMN_PRICE));
-        exhibition.setStartDate((LocalDate) rs.getObject(EXHIBITION_COLUMN_START_DATE));
-        exhibition.setEndDate((LocalDate) rs.getObject(EXHIBITION_COLUMN_END_DATE));
-        exhibition.setOpeningTime((LocalTime) rs.getObject(EXHIBITION_COLUMN_OPENING_TIME));
-        exhibition.setClosingTime((LocalTime) rs.getObject(EXHIBITION_COLUMN_CLOSING_TIME));
+        exhibition.setStartDate(rs.getString(EXHIBITION_COLUMN_START_DATE));
+        exhibition.setEndDate(rs.getString(EXHIBITION_COLUMN_END_DATE));
+        exhibition.setOpeningTime(rs.getString(EXHIBITION_COLUMN_OPENING_TIME));
+        exhibition.setClosingTime(rs.getString(EXHIBITION_COLUMN_CLOSING_TIME));
         exhibition.setStatus(rs.getString(EXHIBITION_COLUMN_STATUS));
         exhibition.setCategoryId(rs.getInt(EXHIBITION_COLUMN_CATEGORY_ID));
 
@@ -133,20 +128,20 @@ public class ExhibitionDAOImpl implements ExhibitionDAO {
         List<Exhibition> exhibitions;
 
         Connection con = null;
-        PreparedStatement pstmt = null;
+        Statement stmt = null;
         ResultSet rs = null;
 
         try {
             con = connectionPool.getConnection();
-            pstmt = con.prepareStatement(query);
-            rs = pstmt.executeQuery();
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(query);
             exhibitions = mapExhibitionsList(rs);
             logger.info("List of exhibitions has been successfully obtained");
         } catch (SQLException ex) {
             logger.error("Error occurred! Could not obtain a list", ex);
             throw new DBException("Could not obtain a list", ex);
         } finally {
-            close(con, pstmt, rs);
+            close(con, stmt, rs);
         }
         return exhibitions;
     }

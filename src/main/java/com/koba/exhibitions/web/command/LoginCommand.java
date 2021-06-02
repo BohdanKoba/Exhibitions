@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import static com.koba.exhibitions.web.Service.getExhibitions;
+
 public class LoginCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -17,20 +19,19 @@ public class LoginCommand implements Command {
 
         DAOFactory factory = DAOFactory.getInstance();
         AccountDAO accountDAO = factory.getAccountDAO();
-
         Account account;
-
         try {
             account = accountDAO.authorizeAccount(login, password);
         } catch (DBException e) {
-            // TODO write message on a screen
+//            request.setAttribute("errorMessage", "Wrong login or password");
             return "login.jsp";
         }
+
         HttpSession session = request.getSession();
         session.setMaxInactiveInterval(-1);
         session.setAttribute("account", account);
-        session.setAttribute("loggedIn", true);
-
+        System.out.println("Login command => " + account);
+        getExhibitions(session);
         return "main.jsp";
     }
 
