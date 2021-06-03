@@ -22,11 +22,6 @@ public class MySqlDAOFactory implements DAOFactory {
     }
 
     @Override
-    public CategoryDAO getCategoryDAO() {
-        return new CategoryDAOImpl();
-    }
-
-    @Override
     public ExhibitionDAO getExhibitionDAO() {
         return new ExhibitionDAOImpl();
     }

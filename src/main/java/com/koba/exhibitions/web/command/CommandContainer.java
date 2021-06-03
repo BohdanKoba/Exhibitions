@@ -16,10 +16,14 @@ public class CommandContainer {
     private static final Map<String, Command> commands = new HashMap<>();
 
     static {
-        commands.put("login", new LoginCommand());
-        commands.put("registration", new RegistrationCommand());
+        commands.put("signIn", new SignInCommand());
+        commands.put("signOut", new SignOutCommand());
+        commands.put("register", new RegistrationCommand());
         commands.put("setLanguage", new SetLanguageCommand());
-        commands.put("exhibitionsList", new ExhibitionsList());
+        commands.put("exhibitions", new ExhibitionsCommand());
+        commands.put("addToCart", new AddToCartCommand());
+        commands.put("sortExhibitions", new SortExhibitionsCommand());
+        commands.put("goTo", new goToCommand());
 
         log.debug("Command container was successfully initialized");
         log.trace("Number of commands --> " + commands.size());
@@ -34,9 +38,9 @@ public class CommandContainer {
     public static Command get(String commandName) {
         if (commandName == null || !commands.containsKey(commandName)) {
             log.trace("Command not found, name --> " + commandName);
-            return commands.get("error");
+            // TODO redirect on Error404 page
+            return commands.get("error404");
         }
-
         return commands.get(commandName);
     }
 

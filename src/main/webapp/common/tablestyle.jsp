@@ -1,14 +1,16 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: y
-  Date: 23.05.21
-  Time: 20:43
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" %>
+
 <style>
-    table, th, td {
+    table, td {
         border: 1px solid black;
-        border-collapse: collapse;
+        padding: 10px 20px;
+    }
+    table {
+        border: none;
+        border-spacing: 0px 10px;
+    }
+    td {
+        text-align: center;
+        vertical-align: middle;
     }
 </style>

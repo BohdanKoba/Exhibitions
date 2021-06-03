@@ -1,8 +1,10 @@
 package com.koba.exhibitions.db.dao;
 
+import com.koba.exhibitions.db.dao.util.AuthorizationException;
 import com.koba.exhibitions.db.dao.util.DBException;
 import com.koba.exhibitions.db.bean.Account;
 import com.koba.exhibitions.db.bean.RegistrationData;
+import com.koba.exhibitions.db.dao.util.LoginExistsException;
 
 public interface AccountDAO {
     /**
@@ -10,8 +12,9 @@ public interface AccountDAO {
      *
      * @param data <code>RegistrationData</code> object which contains data need to create new account
      * @throws DBException if severe problem with database occurred
+     * @throws LoginExistsException if account with such login already exists
      */
-    void registerAccount(RegistrationData data) throws DBException;
+    void registerAccount(RegistrationData data) throws DBException, LoginExistsException;
 
     /**
      * Returns <code>Account</code> object from database by login and password.
@@ -20,8 +23,9 @@ public interface AccountDAO {
      * @param password account password
      * @return <code>Account</code> object if an account with such login and password exists in the database
      * @throws DBException if severe problem with database occurred
+     * @throws AuthorizationException if wrong login or password entered
      */
-    Account authorizeAccount(String login, String password) throws DBException;
+    Account authorizeAccount(String login, String password) throws DBException, AuthorizationException;
 
     /**
      * Returns <code>Account</code> object from database by login.

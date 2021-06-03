@@ -7,13 +7,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><fmt:message key="mainPage"/></title>
+    <title><fmt:message key="editExhibition"/></title>
 </head>
 <body>
-<jsp:include page="common/header.jsp"/>
-<figure style="text-align: center">
-    <input type="image" alt="test" src="images/friends.jpg" width="40%" height="40%/>
-</figure>
-<jsp:include page="common/footer.jsp"/>
+${exhibition.title}
+
 </body>
 </html>

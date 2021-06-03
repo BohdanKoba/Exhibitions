@@ -1,5 +1,6 @@
 package com.koba.exhibitions.db.dao.connection;
 
+import com.koba.exhibitions.db.dao.util.DBException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 

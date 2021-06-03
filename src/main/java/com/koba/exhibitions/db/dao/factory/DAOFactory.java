@@ -10,8 +10,6 @@ public interface DAOFactory {
 
     AccountDAO getAccountDAO();
 
-    CategoryDAO getCategoryDAO();
-
     ExhibitionDAO getExhibitionDAO();
 
     ExhibitionHallDAO getExhibitionHallDAO();

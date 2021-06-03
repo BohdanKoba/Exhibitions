@@ -12,12 +12,13 @@ public class SQLQueries {
             "WHERE id=?";
     public static final String DELETE_ACCOUNT = "DELETE FROM account WHERE id=?";
 
+    //TODO refactor + exhibition dao class
     public static final String CREATE_EXHIBITION = "INSERT INTO exhibition (title, description, price, start_date, " +
             "end_date, opening_time, closing_time, category_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     public static final String GET_EXHIBITION_BY_ID = "SELECT * FROM exhibition WHERE id=?";
-    public static final String GET_ALL_EXHIBITIONS = "SELECT * FROM exhibition ORDER BY id";
-    public static final String GET_AVAILABLE_EXHIBITIONS = "SELECT * FROM exhibition WHERE status='active' ORDER BY id";
+    public static final String GET_ALL_EXHIBITIONS = "SELECT * FROM exhibition ORDER BY title";
+    public static final String GET_AVAILABLE_EXHIBITIONS = "SELECT * FROM exhibition WHERE status='active' " +
+            "AND end_date > CURDATE() ORDER BY title";
     public static final String UPDATE_EXHIBITION_STATUS = "UPDATE exhibition SET status=? WHERE id=?";
-
 
 }

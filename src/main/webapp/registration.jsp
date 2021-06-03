@@ -5,8 +5,9 @@
     <title>Registration</title>
 </head>
 <body>
+<jsp:include page="common/header.jsp"/>
     <form action="app" method="post">
-        <input type="hidden" name="command" value="registration"/>
+        <input type="hidden" name="command" value="register"/>
         <div>Login</div>
         <input name="login" type="text" pattern="^[^\s$/()]+$" minlength="5" maxlength="25" required/><br/>
         <div>Password</div>
@@ -20,5 +21,6 @@
 
         <input type="submit" value="Register"/>
     </form>
+<jsp:include page="common/footer.jsp"/>
 </body>
 </html>

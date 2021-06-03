@@ -1,5 +1,6 @@
 package com.koba.exhibitions;
 
+import com.koba.exhibitions.db.dao.util.DBException;
 import com.koba.exhibitions.web.command.Command;
 import com.koba.exhibitions.web.command.CommandContainer;
 import org.apache.log4j.Logger;
@@ -41,7 +42,13 @@ public class Controller extends HttpServlet {
         Command command = CommandContainer.get(commandName);
         log.trace("Obtained command --> " + command);
 
-        String address = command.execute(request, response);
+        String address = null;
+        try {
+            address = command.execute(request, response);
+        } catch (DBException e) {
+            e.printStackTrace();
+            // TODO  redirect to error page 500 !!!!!!!!!!!!!!!!!!!
+        }
         log.trace("Address --> " + address);
 
         return address;

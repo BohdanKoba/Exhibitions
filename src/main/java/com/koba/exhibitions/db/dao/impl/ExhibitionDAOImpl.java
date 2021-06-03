@@ -9,6 +9,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -114,10 +115,10 @@ public class ExhibitionDAOImpl implements ExhibitionDAO {
         exhibition.setTitle(rs.getString(EXHIBITION_COLUMN_TITLE));
         exhibition.setDescription(rs.getString(EXHIBITION_COLUMN_DESCRIPTION));
         exhibition.setPrice(rs.getInt(EXHIBITION_COLUMN_PRICE));
-        exhibition.setStartDate(rs.getString(EXHIBITION_COLUMN_START_DATE));
-        exhibition.setEndDate(rs.getString(EXHIBITION_COLUMN_END_DATE));
-        exhibition.setOpeningTime(rs.getString(EXHIBITION_COLUMN_OPENING_TIME));
-        exhibition.setClosingTime(rs.getString(EXHIBITION_COLUMN_CLOSING_TIME));
+        exhibition.setStartDate(rs.getDate(EXHIBITION_COLUMN_START_DATE).toLocalDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+        exhibition.setEndDate(rs.getDate(EXHIBITION_COLUMN_END_DATE).toLocalDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+        exhibition.setOpeningTime(rs.getTime(EXHIBITION_COLUMN_OPENING_TIME).toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
+        exhibition.setClosingTime(rs.getTime(EXHIBITION_COLUMN_CLOSING_TIME).toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
         exhibition.setStatus(rs.getString(EXHIBITION_COLUMN_STATUS));
         exhibition.setCategoryId(rs.getInt(EXHIBITION_COLUMN_CATEGORY_ID));
 

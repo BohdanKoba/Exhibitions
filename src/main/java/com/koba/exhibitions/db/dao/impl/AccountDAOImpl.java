@@ -4,11 +4,13 @@ import static com.koba.exhibitions.db.dao.connection.ConnectionPool.close;
 import static com.koba.exhibitions.db.dao.util.Fields.*;
 import static com.koba.exhibitions.db.dao.util.SQLQueries.*;
 
+import com.koba.exhibitions.db.dao.util.AuthorizationException;
 import com.koba.exhibitions.db.dao.util.DBException;
 import com.koba.exhibitions.db.dao.connection.ConnectionPool;
 import com.koba.exhibitions.db.dao.AccountDAO;
 import com.koba.exhibitions.db.bean.Account;
 import com.koba.exhibitions.db.bean.RegistrationData;
+import com.koba.exhibitions.db.dao.util.LoginExistsException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -17,14 +19,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
 public class AccountDAOImpl implements AccountDAO {
     private static final Logger logger = LogManager.getLogger(AccountDAOImpl.class);
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     @Override
-    public void registerAccount(RegistrationData data) throws DBException {
+    public void registerAccount(RegistrationData data) throws DBException, LoginExistsException {
         Connection con = null;
         PreparedStatement pstmt = null;
 
@@ -37,7 +38,11 @@ public class AccountDAOImpl implements AccountDAO {
             pstmt.setString(k++, data.getFirstName());
             pstmt.setString(k++, data.getLastName());
             pstmt.setString(k++, data.getEmail());
-            pstmt.executeUpdate();
+            try {
+                pstmt.executeUpdate();
+            } catch (SQLException ex) {
+                throw new LoginExistsException("Account with such login is already exists");
+            }
             logger.info("New account has been successfully created");
         } catch (SQLException ex) {
             logger.error("Error occurred! Could not create new account", ex);
@@ -48,7 +53,7 @@ public class AccountDAOImpl implements AccountDAO {
     }
 
     @Override
-    public Account authorizeAccount(String login, String password) throws DBException {
+    public Account authorizeAccount(String login, String password) throws DBException, AuthorizationException {
         Account account;
 
         Connection con = null;
@@ -63,13 +68,13 @@ public class AccountDAOImpl implements AccountDAO {
             pstmt.setString(k++, password);
             rs = pstmt.executeQuery();
             if (!rs.next()) {
-                throw new SQLException();
+                throw new AuthorizationException("Wrong login or password");
             }
             account = mapAccount(rs);
             logger.info("Account has been successfully authorized");
         } catch (SQLException ex) {
-            logger.error("Error occurred! Could not authorize an account", ex);
-            throw new DBException("Could not authorize an account", ex);
+            logger.error("Error occurred! Could not authorize account", ex);
+            throw new DBException("Could not authorize account", ex);
         } finally {
             close(con, pstmt, rs);
         }
