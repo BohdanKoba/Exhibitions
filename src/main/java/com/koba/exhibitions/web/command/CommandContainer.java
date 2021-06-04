@@ -23,7 +23,7 @@ public class CommandContainer {
         commands.put("exhibitions", new ExhibitionsCommand());
         commands.put("addToCart", new AddToCartCommand());
         commands.put("sortExhibitions", new SortExhibitionsCommand());
-        commands.put("goTo", new goToCommand());
+        commands.put("changeStatus", new ChangeStatusCommand());
 
         log.debug("Command container was successfully initialized");
         log.trace("Number of commands --> " + commands.size());

@@ -7,10 +7,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><fmt:message key="editExhibition"/></title>
+    <title><fmt:message key="edit"/></title>
 </head>
 <body>
-${exhibition.title}
+<jsp:include page="common/header.jsp"/>
 
+
+
+
+${exhibition.title = "dfd"}
+<jsp:include page="common/footer.jsp"/>
 </body>
 </html>

@@ -36,6 +36,9 @@
                 <th><h3><fmt:message key="price"/></h3></th>
                 <th><h3><fmt:message key="date"/></h3></th>
                 <th><h3><fmt:message key="time"/></h3></th>
+                <c:if test="${account.role eq 'admin'}">
+                    <th><h3><fmt:message key="status"/></h3></th>
+                </c:if>
             </tr>
             <c:forEach var="exhibition" items="${exhibitions}">
                 <tr>
@@ -44,32 +47,26 @@
                     <td>${exhibition.price}</td>
                     <td>${exhibition.startDate} - ${exhibition.endDate}</td>
                     <td>${exhibition.openingTime} - ${exhibition.closingTime}</td>
-                    <c:if test="${account.role ne 'admin'}">
+                    <c:choose>
+                    <c:when test="${account.role eq 'admin'}">
+                        <td style="border: none">
+                            <form action="app" method="post">
+                                <label><fmt:message key="${exhibition.status}"/></label>
+                                <br><br>
+                                <input type="hidden" name="command" value="changeStatus"/>
+                                <button type="submit" name="exhibitionId" value="${exhibition.id}"><fmt:message key="change"/></button>
+                            </form>
+                        </td>
+                    </c:when>
+                    <c:otherwise>
                         <td style="border: none">
                             <form action="app" method="post">
                                 <input type="hidden" name="command" value="addToCart"/>
                                 <button type="submit"><fmt:message key="addToCart"/></button>
                             </form>
                         </td>
-                    </c:if>
-                    <c:if test="${account.role eq 'admin'}">
-                        <td style="border: none">
-                            <form action="app" method="post">
-                                <input type="hidden" name="command" value="goTo"/>
-                                <button type="submit" name="exhibition" value="${exhibition.id}"><fmt:message key="edit"/></button>
-                            </form>
-                        </td>
-<%--                        <td style="border: none">--%>
-<%--                            <form qaction="editExhibition.jsp">--%>
-<%--                                <input type="submit" onclick="<a href="" " value="<fmt:message key="edit"/>"/>--%>
-<%--                            </form>--%>
-
-<%--&lt;%&ndash;                            <form action="app" method="post">&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                <input type="hidden" name="command" value="addToCart"/>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                <button type="submit" value="${exhibition}"><fmt:message key="edit"/></button>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                            </form>&ndash;%&gt;--%>
-<%--                        </td>--%>
-                    </c:if>
+                    </c:otherwise>
+                    </c:choose>
                 </tr>
             </c:forEach>
         </table>

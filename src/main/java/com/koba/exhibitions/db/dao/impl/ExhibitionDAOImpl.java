@@ -38,7 +38,6 @@ public class ExhibitionDAOImpl implements ExhibitionDAO {
             pstmt.setObject(k++, data.getEndDate());
             pstmt.setObject(k++, data.getOpeningTime());
             pstmt.setObject(k++, data.getClosingTime());
-            pstmt.setInt(k++, data.getCategoryId());
 
             pstmt.executeUpdate();
             logger.info("New exhibition has been successfully created");
@@ -88,7 +87,7 @@ public class ExhibitionDAOImpl implements ExhibitionDAO {
     }
 
     @Override
-    public void updateExhibitionStatus(Exhibition exhibition) throws DBException {
+    public void updateExhibitionStatus(Integer id, String status) throws DBException {
         Connection con = null;
         PreparedStatement pstmt = null;
 
@@ -96,8 +95,8 @@ public class ExhibitionDAOImpl implements ExhibitionDAO {
             con = connectionPool.getConnection();
             pstmt = con.prepareStatement(UPDATE_EXHIBITION_STATUS);
             int k = 1;
-            pstmt.setString(k++, exhibition.getStatus());
-            pstmt.setInt(k++, exhibition.getId());
+            pstmt.setString(k++, status);
+            pstmt.setInt(k++, id);
             pstmt.executeUpdate();
             logger.info("Exhibition status has been successfully updated");
         } catch (SQLException ex) {
@@ -120,7 +119,6 @@ public class ExhibitionDAOImpl implements ExhibitionDAO {
         exhibition.setOpeningTime(rs.getTime(EXHIBITION_COLUMN_OPENING_TIME).toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
         exhibition.setClosingTime(rs.getTime(EXHIBITION_COLUMN_CLOSING_TIME).toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
         exhibition.setStatus(rs.getString(EXHIBITION_COLUMN_STATUS));
-        exhibition.setCategoryId(rs.getInt(EXHIBITION_COLUMN_CATEGORY_ID));
 
         return exhibition;
     }

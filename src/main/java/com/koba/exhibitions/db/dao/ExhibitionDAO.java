@@ -42,9 +42,10 @@ public interface ExhibitionDAO {
     /**
      * Updates exhibition status.
      *
-     * @param exhibition an exhibition which status needs to be updated
+     * @param id exhibition id
+     * @param status the name of the updated status
      * @throws DBException if severe problem with database occurred
      */
-    void updateExhibitionStatus(Exhibition exhibition) throws DBException;
+    void updateExhibitionStatus(Integer id, String status) throws DBException;
 
 }

@@ -8,15 +8,21 @@ import com.koba.exhibitions.db.dao.util.DBException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class goToCommand implements Command {
+public class ChangeStatusCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws DBException {
+        String referer = request.getHeader("Referer");
         DAOFactory factory = DAOFactory.getInstance();
         ExhibitionDAO exhibitionDAO = factory.getExhibitionDAO();
-        int id = Integer.parseInt(request.getParameter("exhibition"));
+
+        int id = Integer.parseInt(request.getParameter("exhibitionId"));
+        String status = "active";
         Exhibition exhibition = exhibitionDAO.getExhibition(id);
-        request.getSession().setAttribute("exhibition", exhibition);
-        return "editExhibition.jsp";
+        if (exhibition.getStatus().equals("active")) {
+            status = "canceled";
+        }
+        exhibitionDAO.updateExhibitionStatus(id, status);
+        return referer;
     }
 
 }
