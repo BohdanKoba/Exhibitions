@@ -19,7 +19,7 @@ public class CommandContainer {
         commands.put("signOut", new SignOutCommand());
         commands.put("register", new RegistrationCommand());
         commands.put("setLanguage", new SetLanguageCommand());
-        commands.put("exhibitions", new GetExhibitionsCommand());
+        commands.put("getExhibitions", new GetExhibitionsCommand());
         commands.put("addToCart", new AddToCartCommand());
         commands.put("sortExhibitions", new SortExhibitionsCommand());
         commands.put("changeStatus", new ChangeStatusCommand());

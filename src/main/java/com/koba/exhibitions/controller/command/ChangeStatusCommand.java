@@ -26,7 +26,7 @@ public class ChangeStatusCommand implements Command {
         }
         HttpSession session = request.getSession();
         exhibitionDAO.updateExhibitionStatus(id, status);
-        getExhibitions(session);
+        session.removeAttribute("exhibitions");
         return referer;
     }
 

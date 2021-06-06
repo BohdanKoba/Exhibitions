@@ -12,12 +12,13 @@ import static com.koba.exhibitions.controller.service.SortService.sort;
 public class SortExhibitionsCommand implements Command{
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        String referer = request.getHeader("Referer");
         HttpSession session = request.getSession();
         String sortMethod = request.getParameter("sortBy");
         List<Exhibition> exhibitions = (List<Exhibition>)session.getAttribute("exhibitions");
         sort(exhibitions, sortMethod);
         session.setAttribute("exhibitions", exhibitions);
-        return "exhibitions.jsp";
+        return referer;
     }
 
 }

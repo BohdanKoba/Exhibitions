@@ -13,7 +13,7 @@
 <body>
 <jsp:include page="jsp/fragments/header.jsp"/>
 <c:if test="${empty exhibitions}">
-    <c:import url="app?command=exhibitions"/>
+    <c:import url="app?command=getExhibitions"/>
 </c:if>
 <div>
     <div>
