@@ -1,26 +1,48 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<fmt:setLocale value="${language}"/>
+<fmt:setBundle basename="resources"/>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Registration</title>
+    <title><fmt:message key="register"/></title>
+    <jsp:include page="/editStyle/pagestyle.jsp"/>
 </head>
 <body>
-<jsp:include page="common/header.jsp"/>
-    <form action="app" method="post">
+<jsp:include page="jsp/fragments/header.jsp"/>
+<div>
+    <form action="app" method="post" class="form-style" id="register">
         <input type="hidden" name="command" value="register"/>
-        <div>Login</div>
-        <input name="login" type="text" pattern="^[^\s$/()]+$" minlength="5" maxlength="25" required/><br/>
-        <div>Password</div>
-        <input name="password" type="password" pattern="^[^\s]+$" minlength="6" maxlength="20" required/><br/>
-        <div>First name</div>
-        <input name = "first_name" type="text" pattern="^\p{Lu}\p{Ll}+$" minlength="2" maxlength="50" required/><br>
-        <div>Last name</div>
-        <input name = "last_name" type="text" pattern="^\p{Lu}\p{Ll}+$" minlength="2" maxlength="50" required/><br>
-        <div>Email</div>
-        <input name = "email" type="email" required/><br>
-
-        <input type="submit" value="Register"/>
+        <div>
+            <strong><fmt:message key="login"/></strong>
+        </div>
+        <input name="login" type="text" pattern="^[^\s$/()]+$" minlength="5" maxlength="25" required/>
+        <br><br>
+        <div>
+            <strong><fmt:message key="password"/></strong>
+        </div>
+        <input name="password" type="password" pattern="^[^\s]+$" minlength="6" maxlength="20" required/>
+        <br><br>
+        <div>
+            <strong><fmt:message key="firstName"/></strong>
+        </div>
+        <input name="firstName" type="text" pattern="^\p{Lu}\p{Ll}+$" minlength="2" maxlength="50" required/>
+        <br><br>
+        <div>
+            <strong><fmt:message key="lastName"/></strong>
+        </div>
+        <input name="lastName" type="text" pattern="^\p{Lu}\p{Ll}+$" minlength="2" maxlength="50" required/>
+        <br><br>
+        <div>
+            <strong><fmt:message key="email"/></strong>
+        </div>
+        <input name="email" type="email" required/>
+        <br><br>
+        <input style="width: 140px" type="submit" value="<fmt:message key="register"/>"/>
     </form>
-<jsp:include page="common/footer.jsp"/>
+</div>
+<jsp:include page="jsp/fragments/footer.jsp"/>
 </body>
 </html>

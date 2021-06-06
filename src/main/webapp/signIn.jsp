@@ -8,25 +8,28 @@
 <html>
 <head>
     <title><fmt:message key="signInTitle"/></title>
+    <jsp:include page="/editStyle/pagestyle.jsp"/>
 </head>
 <body>
-<jsp:include page="common/header.jsp"/>
-<div style="display: flex; justify-content: space-between; margin: 0 20px;">
-    <div>
-        <h2><fmt:message key="signInTitle"/></h2>
-        <form action="app" method="post">
+<jsp:include page="jsp/fragments/header.jsp"/>
+<div>
+    <form action="app" method="post" class="form-style" id="signIn">
+        <h2 style="margin-top: -5px"><fmt:message key="signInTitle"/></h2>
+        <div>
             <input type="hidden" name="command" value="signIn"/>
             <label><input name="login" type="text" placeholder="<fmt:message key="login"/>"/></label>
-            <br>
+        </div>
+        <br>
+        <div>
             <label><input name="password" type="password" placeholder="<fmt:message key="password"/>"/></label>
-            <br>
-            <button type="submit"><fmt:message key="signIn"/> </button>
-        </form>
-<%--        <c:if test="${not empty requestScope.errorMessage}">--%>
-<%--            <p style="color: red">Wrong Login or Password</p>--%>
-<%--        </c:if>--%>
-    </div>
+        </div>
+        <br>
+        <input style="width: 60px" type="submit" value="<fmt:message key="signIn"/>"/>
+        <br>
+        <p><fmt:message key="haveAccountQestion"/></p>
+        <a href="registration.jsp"><strong><fmt:message key="signUp"/></strong></a>
+    </form>
 </div>
-<jsp:include page="common/footer.jsp"/>
+<jsp:include page="jsp/fragments/footer.jsp"/>
 </body>
 </html>

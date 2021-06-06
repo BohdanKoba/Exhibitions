@@ -8,13 +8,16 @@
 <html>
 <head>
     <title><fmt:message key="exhibitions"/></title>
-    <jsp:include page="/common/tablestyle.jsp"/>
+    <jsp:include page="/editStyle/tablestyle.jsp"/>
 </head>
 <body>
-<jsp:include page="common/header.jsp"/>
-<div style="display: flex; justify-content: space-between; margin: 0 20px;">
+<jsp:include page="jsp/fragments/header.jsp"/>
+<c:if test="${empty exhibitions}">
+    <c:import url="app?command=exhibitions"/>
+</c:if>
+<div>
     <div>
-        <h2 style="text-align:center"><fmt:message key="availableExhibitions"/></h2>
+        <h2 class="center"><fmt:message key="exhibitions"/></h2>
         <form action="app" method="post">
             <input type="hidden" name="command" value="sortExhibitions"/>
             <button type="submit" name="sortBy" value="ByNameInc"><fmt:message key="title"/> &uarr;</button>
@@ -48,30 +51,30 @@
                     <td>${exhibition.startDate} - ${exhibition.endDate}</td>
                     <td>${exhibition.openingTime} - ${exhibition.closingTime}</td>
                     <c:choose>
-                    <c:when test="${account.role eq 'admin'}">
-                        <td style="border: none">
-                            <form action="app" method="post">
-                                <label><fmt:message key="${exhibition.status}"/></label>
-                                <br><br>
-                                <input type="hidden" name="command" value="changeStatus"/>
-                                <button type="submit" name="exhibitionId" value="${exhibition.id}"><fmt:message key="change"/></button>
-                            </form>
-                        </td>
-                    </c:when>
-                    <c:otherwise>
-                        <td style="border: none">
-                            <form action="app" method="post">
-                                <input type="hidden" name="command" value="addToCart"/>
-                                <button type="submit"><fmt:message key="addToCart"/></button>
-                            </form>
-                        </td>
-                    </c:otherwise>
+                        <c:when test="${account.role eq 'admin'}">
+                            <td style="border: none">
+                                <form action="app" method="post">
+                                    <label><fmt:message key="${exhibition.status}"/></label>
+                                    <br><br>
+                                    <input type="hidden" name="command" value="changeStatus"/>
+                                    <button type="submit" name="exhibitionId" value="${exhibition.id}"><fmt:message key="change"/></button>
+                                </form>
+                            </td>
+                        </c:when>
+                        <c:otherwise>
+                            <td style="border: none">
+                                <form action="app" method="post">
+                                    <input type="hidden" name="command" value="addToCart"/>
+                                    <button type="submit" name="exhibitionId" value="${exhibition.id}"><fmt:message key="addToCart"/></button>
+                                </form>
+                            </td>
+                        </c:otherwise>
                     </c:choose>
                 </tr>
             </c:forEach>
         </table>
     </div>
 </div>
-<jsp:include page="common/footer.jsp"/>
+<jsp:include page="jsp/fragments/footer.jsp"/>
 </body>
 </html>
