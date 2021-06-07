@@ -1,6 +1,19 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 
 <style>
+    .table table, td {
+        border: 1px solid black;
+        padding: 10px 20px;
+    }
+    .table table {
+        border: none;
+        border-spacing: 0px 10px;
+    }
+    .table td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
     .navbar ul {
         padding: 0;
         list-style: none;
@@ -23,6 +36,12 @@
         border: 1px solid chocolate;
         background: burlywood;
         color: black;
+    }
+
+    #tableCenter {
+        width:70%;
+        margin-left:15%;
+        margin-right:15%;
     }
 
     .header-panel {

@@ -41,9 +41,4 @@ public class MySqlDAOFactory implements DAOFactory {
         return new OrderDAOImpl();
     }
 
-    @Override
-    public OrderExhibitionDAO getOrderExhibitionDAO() {
-        return new OrderExhibitionDAOImpl();
-    }
-
 }

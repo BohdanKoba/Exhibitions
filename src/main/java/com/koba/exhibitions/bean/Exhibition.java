@@ -14,6 +14,7 @@ public class Exhibition implements Serializable {
     private String openingTime;
     private String closingTime;
     private String status;
+    private Integer ticketsSold;
 
     public Integer getId() {
         return id;
@@ -85,6 +86,14 @@ public class Exhibition implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Integer getTicketsSold() {
+        return ticketsSold;
+    }
+
+    public void setTicketsSold(Integer ticketsSold) {
+        this.ticketsSold = ticketsSold;
     }
 
 }

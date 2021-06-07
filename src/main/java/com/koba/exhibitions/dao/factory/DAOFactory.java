@@ -18,6 +18,4 @@ public interface DAOFactory {
     HallDAO getHallDAO();
 
     OrderDAO getOrderDAO();
-
-    OrderExhibitionDAO getOrderExhibitionDAO();
 }

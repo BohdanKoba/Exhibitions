@@ -7,13 +7,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Title</title>
+    <title><fmt:message key="accessDenied"/></title>
 </head>
 <body>
-<jsp:include page="jsp/fragments/header.jsp"/>
-<div>
-
+<div class="center">
+    <h1>
+        <fmt:message key="accessDenied"/>
+    </h1>
+    <br>
+    <a href="${pageContext.request.contextPath}/index.jsp"><fmt:message key="backToMainPage"/></a>
 </div>
-<jsp:include page="jsp/fragments/footer.jsp"/>
+<jsp:include page="../fragments/footer.jsp"/>
 </body>
 </html>

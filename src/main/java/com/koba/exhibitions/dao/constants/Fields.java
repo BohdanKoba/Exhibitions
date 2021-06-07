@@ -21,6 +21,7 @@ public class Fields {
     public static final String EXHIBITION_COLUMN_OPENING_TIME = "opening_time";
     public static final String EXHIBITION_COLUMN_CLOSING_TIME = "closing_time";
     public static final String EXHIBITION_COLUMN_STATUS = "status";
+    public static final String EXHIBITION_COLUMN_TICKETS_SOLD = "tickets_sold";
 
     public static final String EXHIBITION_HALL_COLUMN_EXHIBITION_ID = "exhibition_id";
     public static final String EXHIBITION_HALL_COLUMN_HALL_ID = "hall_id";

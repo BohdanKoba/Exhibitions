@@ -10,6 +10,8 @@ public class AppHttpSessionListener implements HttpSessionListener {
     private static final Logger logger = LogManager.getLogger(AppHttpSessionListener.class);
 
     public void sessionCreated(HttpSessionEvent event) {
+        String contextPath = event.getSession().getServletContext().getContextPath();
+        event.getSession().setAttribute("contextPath", contextPath);
         logger.info("Session " + event.getSession().getId() + " created");
     }
 

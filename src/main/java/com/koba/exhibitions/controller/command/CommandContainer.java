@@ -20,10 +20,10 @@ public class CommandContainer {
         commands.put("register", new RegistrationCommand());
         commands.put("setLanguage", new SetLanguageCommand());
         commands.put("getExhibitions", new GetExhibitionsCommand());
-        commands.put("addToCart", new AddToCartCommand());
         commands.put("sortExhibitions", new SortExhibitionsCommand());
         commands.put("changeStatus", new ChangeStatusCommand());
         commands.put("addExhibition", new AddExhibitionCommand());
+        commands.put("buyTickets", new BuyTicketsCommand());
 
         log.debug("Command container was successfully initialized");
         log.trace("Number of commands --> " + commands.size());

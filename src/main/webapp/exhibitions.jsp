@@ -8,7 +8,7 @@
 <html>
 <head>
     <title><fmt:message key="exhibitions"/></title>
-    <jsp:include page="/editStyle/tablestyle.jsp"/>
+    <jsp:include page="/editStyle/pagestyle.jsp"/>
 </head>
 <body>
 <jsp:include page="jsp/fragments/header.jsp"/>
@@ -16,8 +16,8 @@
     <c:import url="app?command=getExhibitions"/>
 </c:if>
 <div>
-    <div>
-        <h2 class="center"><fmt:message key="exhibitions"/></h2>
+    <h2 class="center"><fmt:message key="exhibitions"/></h2>
+    <div class="table">
         <form action="app" method="post">
             <input type="hidden" name="command" value="sortExhibitions"/>
             <button type="submit" name="sortBy" value="ByNameInc"><fmt:message key="title"/> &uarr;</button>
@@ -28,15 +28,15 @@
         <table>
             <colgroup>
                 <col span="1" style="width: 14%;">
-                <col span="1" style="width: 63%;">
-                <col span="1" style="width: 5%;">
+                <col span="1" style="width: 60%;">
+                <col span="1" style="width: 8%;">
                 <col span="1" style="width: 10%;">
                 <col span="1" style="width: 8%;">
             </colgroup>
             <tr>
                 <th><h3><fmt:message key="title"/></h3></th>
                 <th><h3><fmt:message key="description"/></h3></th>
-                <th><h3><fmt:message key="price"/></h3></th>
+                <th><h3><fmt:message key="price"/>, <fmt:message key="uah"/></h3></th>
                 <th><h3><fmt:message key="date"/></h3></th>
                 <th><h3><fmt:message key="time"/></h3></th>
                 <c:if test="${account.role eq 'admin'}">
@@ -64,7 +64,7 @@
                         <c:otherwise>
                             <td style="border: none">
                                 <form action="app" method="post">
-                                    <input type="hidden" name="command" value="addToCart"/>
+                                    <input type="hidden" name="command" value="buyTickets"/>
                                     <button type="submit" name="exhibitionId" value="${exhibition.id}"><fmt:message key="addToCart"/></button>
                                 </form>
                             </td>

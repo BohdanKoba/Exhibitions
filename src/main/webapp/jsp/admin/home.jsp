@@ -7,13 +7,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Title</title>
+    <title><fmt:message key="homePage"/></title>
 </head>
 <body>
-<jsp:include page="jsp/fragments/header.jsp"/>
+<jsp:include page="../fragments/header.jsp"/>
 <div>
 
 </div>
-<jsp:include page="jsp/fragments/footer.jsp"/>
+<jsp:include page="../fragments/footer.jsp"/>
 </body>
 </html>

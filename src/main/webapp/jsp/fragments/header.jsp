@@ -19,20 +19,20 @@
 </c:if>
 <c:if test="${signedIn}">
     <div class="header-panel">
-        <a href="app?command=signOut"><fmt:message key="signOut"/></a>
+        <a href="${contextPath}/app?command=signOut"><fmt:message key="signOut"/></a>
     </div>
 </c:if>
 <hr>
 <div class="navbar">
     <ul>
-        <li><a href="index.jsp"><fmt:message key="mainPage"/></a></li>
-        <li><a href="exhibitions.jsp"><fmt:message key="exhibitions"/></a></li>
+        <li><a href="${contextPath}/index.jsp"><fmt:message key="mainPage"/></a></li>
+        <li><a href="${contextPath}/exhibitions.jsp"><fmt:message key="exhibitions"/></a></li>
         <c:if test="${account.role ne 'admin'}">
-            <li><a href="cart.jsp"><fmt:message key="cart"/></a></li>
+            <li><a href="${contextPath}/cart.jsp"><fmt:message key="cart"/></a></li>
         </c:if>
         <c:if test="${account.role eq 'admin'}">
-            <li><a href="jsp/admin/statistics.jsp"><fmt:message key="statistics"/></a></li>
-            <li><a href="jsp/admin/addExhibition.jsp"><fmt:message key="addExhibition"/></a></li>
+            <li><a href="${contextPath}/jsp/admin/statistics.jsp"><fmt:message key="statistics"/></a></li>
+            <li><a href="${contextPath}/jsp/admin/addExhibition.jsp"><fmt:message key="addExhibition"/></a></li>
         </c:if>
         <li><a href="home.jsp"><fmt:message key="homePage"/></a></li>
     </ul>

@@ -119,6 +119,7 @@ public class ExhibitionDAOImpl implements ExhibitionDAO {
         exhibition.setOpeningTime(rs.getTime(Fields.EXHIBITION_COLUMN_OPENING_TIME).toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
         exhibition.setClosingTime(rs.getTime(Fields.EXHIBITION_COLUMN_CLOSING_TIME).toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
         exhibition.setStatus(rs.getString(Fields.EXHIBITION_COLUMN_STATUS));
+        exhibition.setTicketsSold(rs.getInt(Fields.EXHIBITION_COLUMN_TICKETS_SOLD));
 
         return exhibition;
     }
