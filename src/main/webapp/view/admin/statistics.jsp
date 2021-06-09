@@ -12,7 +12,7 @@
     <jsp:include page="/editStyle/pagestyle.jsp"/>
 </head>
 <body>
-<jsp:include page="../fragments/header.jsp"/>
+<jsp:include page="/view/fragments/header.jsp"/>
 <div>
     <h2 class="center"><fmt:message key="visitStatistics"/></h2>
     <div>
@@ -27,7 +27,7 @@
             <tr>
                 <th><h3><fmt:message key="title"/></h3></th>
                 <th><h3><fmt:message key="date"/></h3></th>
-                <th><h3><fmt:message key="price"/></h3></th>
+                <th><h3><fmt:message key="price"/>, <fmt:message key="uah"/></h3></th>
                 <th><h3><fmt:message key="ticketsSold"/></h3></th>
                 <th><h3><fmt:message key="revenue"/></h3></th>
             </tr>
@@ -43,6 +43,6 @@
         </table>
     </div>
 </div>
-<jsp:include page="../fragments/footer.jsp"/>
+<jsp:include page="/view/fragments/footer.jsp"/>
 </body>
 </html>

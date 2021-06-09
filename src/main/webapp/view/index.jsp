@@ -7,13 +7,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><fmt:message key="homePage"/></title>
+    <title><fmt:message key="mainPage"/></title>
+    <jsp:include page="/editStyle/pagestyle.jsp"/>
 </head>
 <body>
-<jsp:include page="../fragments/header.jsp"/>
-<div>
-
-</div>
-<jsp:include page="../fragments/footer.jsp"/>
+<jsp:include page="fragments/header.jsp"/>
+<figure class="center">
+    <input type="image" alt="test" src="${contextPath}/img/friends.jpg" width="40%" height="40%/>
+</figure>
+<jsp:include page="fragments/footer.jsp"/>
 </body>
 </html>

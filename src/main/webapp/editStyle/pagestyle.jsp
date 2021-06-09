@@ -14,28 +14,32 @@
         vertical-align: middle;
     }
 
-    .navbar ul {
-        padding: 0;
-        list-style: none;
-        font-size: 0;
+    .navbar {
+        background-color: white;
         text-align: center;
-    }
-
-    .navbar ul li {
-        font-size: 16px;
-        display: inline-block;
-    }
-
-    .navbar a {
-        width: 150px;
-        height: 40px;
-        line-height: 40px;
-        text-decoration: none;
-        display: block;
-        padding: 1em;
-        border: 1px solid chocolate;
-        background: burlywood;
+        height: 50px;
         color: black;
+    }
+
+    .navbar button {
+        width: 200px;
+        height:50px;
+        vertical-align: top;
+        border: none;
+        display: inline;
+        background: none;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: black;
+        letter-spacing: 1px;
+        font-size: inherit;
+        transition: all 0.3s;
+        outline: none;
+    }
+
+    .navbar button:hover {
+        color: white;
+        background: black;
     }
 
     #tableCenter {

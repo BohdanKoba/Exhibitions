@@ -7,14 +7,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><fmt:message key="mainPage"/></title>
+    <title><fmt:message key="accessDenied"/></title>
     <jsp:include page="/editStyle/pagestyle.jsp"/>
 </head>
 <body>
-<jsp:include page="jsp/fragments/header.jsp"/>
-<figure class="center">
-    <input type="image" alt="test" src="img/friends.jpg" width="40%" height="40%/>
-</figure>
-<jsp:include page="jsp/fragments/footer.jsp"/>
+<div class="center">
+    <h1>
+        <fmt:message key="accessDenied"/>
+    </h1>
+    <br>
+    <a href="${pageContext.request.contextPath}/view/index.jsp"><fmt:message key="backToMainPage"/></a>
+</div>
+<jsp:include page="/view/fragments/footer.jsp"/>
 </body>
 </html>

@@ -7,18 +7,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><fmt:message key="error404title"/></title>
+    <title><fmt:message key="error500title"/></title>
     <jsp:include page="/editStyle/pagestyle.jsp"/>
 </head>
 <body>
 <div class="center">
-    <h1>
-        <fmt:message key="error404"/>
-    </h1>
+    <h1><fmt:message key="error500"/></h1>
     <br>
-    <a href="${pageContext.request.contextPath}/index.jsp"><fmt:message key="backToMainPage"/></a>
+    <a href="${pageContext.request.contextPath}/view/index.jsp"><fmt:message key="backToMainPage"/></a>
 </div>
-<jsp:include page="../fragments/footer.jsp"/>
+<jsp:include page="/view/fragments/footer.jsp"/>
 </body>
 </html>
 

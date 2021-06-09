@@ -11,9 +11,9 @@
     <jsp:include page="/editStyle/pagestyle.jsp"/>
 </head>
 <body>
-<jsp:include page="jsp/fragments/header.jsp"/>
+<jsp:include page="fragments/header.jsp"/>
 <div>
-    <form action="app" method="post" class="form-style" id="signIn">
+    <form action="${contextPath}/app" method="post" class="form-style" id="signIn">
         <h2 style="margin-top: -5px"><fmt:message key="signInTitle"/></h2>
         <div>
             <input type="hidden" name="command" value="signIn"/>
@@ -27,9 +27,9 @@
         <input style="width: 60px" type="submit" value="<fmt:message key="signIn"/>"/>
         <br>
         <p><fmt:message key="haveAccountQestion"/></p>
-        <a href="registration.jsp"><strong><fmt:message key="signUp"/></strong></a>
+        <a href="${contextPath}/view/registration.jsp"><strong><fmt:message key="signUp"/></strong></a>
     </form>
 </div>
-<jsp:include page="jsp/fragments/footer.jsp"/>
+<jsp:include page="fragments/footer.jsp"/>
 </body>
 </html>

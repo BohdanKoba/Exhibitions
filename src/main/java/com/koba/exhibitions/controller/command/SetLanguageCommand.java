@@ -9,7 +9,6 @@ public class SetLanguageCommand implements Command{
         String referer = request.getHeader("Referer");
         String language = request.getParameter("language");
         request.getSession().setAttribute("language", language);
-        System.out.println(referer);
         return referer;
     }
 

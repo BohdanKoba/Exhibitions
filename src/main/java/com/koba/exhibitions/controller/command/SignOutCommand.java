@@ -10,7 +10,7 @@ public class SignOutCommand implements Command{
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws DBException {
         request.getSession().invalidate();
-        return "index.jsp";
+        return "view/index.jsp";
     }
 
 }

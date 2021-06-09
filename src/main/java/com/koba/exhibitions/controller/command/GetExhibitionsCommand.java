@@ -14,9 +14,6 @@ public class GetExhibitionsCommand implements Command {
         String referer = request.getHeader("Referer");
         HttpSession session = request.getSession();
         getExhibitions(session);
-        if (referer == null) {
-            referer = session.getServletContext().getContextPath();
-        }
         return referer;
     }
 

@@ -15,6 +15,7 @@ public class CommandContainer {
     private static final Map<String, Command> commands = new HashMap<>();
 
     static {
+        commands.put("goTo", new GoToCommand());
         commands.put("signIn", new SignInCommand());
         commands.put("signOut", new SignOutCommand());
         commands.put("register", new RegistrationCommand());
@@ -24,6 +25,7 @@ public class CommandContainer {
         commands.put("changeStatus", new ChangeStatusCommand());
         commands.put("addExhibition", new AddExhibitionCommand());
         commands.put("buyTickets", new BuyTicketsCommand());
+        commands.put("maapExhibition", new MaapExhibition());
 
         log.debug("Command container was successfully initialized");
         log.trace("Number of commands --> " + commands.size());

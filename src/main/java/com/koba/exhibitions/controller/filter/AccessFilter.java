@@ -25,7 +25,7 @@ public class AccessFilter implements Filter {
         Account account = (Account) request.getSession().getAttribute("account");
 //        if ()
         if (account == null || !account.getRole().equals("admin")) {
-            response.sendRedirect(request.getContextPath() + "/jsp/error/accessDenied.jsp");
+            response.sendRedirect(request.getContextPath() + "/view/error/accessDenied.jsp");
         } else {
             filterChain.doFilter(request, response);
         }

@@ -38,10 +38,10 @@ public class RegistrationCommand implements Command {
         } catch (LoginExistsException ex) {
             logger.warn("Could not create new account", ex);
             // TODO write "user with this login is already exists"
-            return "registration.jsp";
+            return "view/registration.jsp";
         }
         logger.debug("RegistrationCommand finished");
-        return "signIn.jsp";
+        return "view/signIn.jsp";
     }
 
 }

@@ -30,7 +30,7 @@ public class SignInCommand implements Command {
         } catch (AuthorizationException ex) {
             logger.warn("Could not authorize account", ex);
             //TODO write message on screen
-            return "signIn.jsp";
+            return "view/signIn.jsp";
         }
         HttpSession session = request.getSession();
         session.setMaxInactiveInterval(-1);
@@ -39,7 +39,7 @@ public class SignInCommand implements Command {
         if (account.getRole().equals("admin")) {
             getExhibitions(session);
         }
-        return "index.jsp";
+        return "view/index.jsp";
     }
 
 }

@@ -9,11 +9,16 @@
 <head>
     <title><fmt:message key="addExhibition"/></title>
     <jsp:include page="/editStyle/pagestyle.jsp"/>
+    <style>
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+    </style>
 </head>
 <body>
-<jsp:include page="../fragments/header.jsp"/>
+<jsp:include page="/view/fragments/header.jsp"/>
 <div id="addExhibition">
-    <form action="app" method="post" class="form-style">
+    <form action="${contextPath}/app" method="post" class="form-style">
         <input type="hidden" name="command" value="addExhibition"/>
         <div>
             <div>
@@ -57,9 +62,9 @@
         </div>
         <br>
         <input style="width: 100px" type="submit" value="<fmt:message key="add"/>"/>
-        <button style="width: 100px"><a class="linkButton" href="../../exhibitions.jsp"><fmt:message key="cancel"/></a></button>
+        <button style="width: 100px"><a class="linkButton" href="../exhibitions.jsp"><fmt:message key="cancel"/></a></button>
     </form>
 </div>
-<jsp:include page="../fragments/footer.jsp"/>
+<jsp:include page="/view/fragments/footer.jsp"/>
 </body>
 </html>

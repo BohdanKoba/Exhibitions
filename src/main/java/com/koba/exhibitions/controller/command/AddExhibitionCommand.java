@@ -15,7 +15,7 @@ public class AddExhibitionCommand implements Command {
         System.out.println(request.getParameter("dateTo"));
         System.out.println(request.getParameter("timeFrom"));
         System.out.println(request.getParameter("timeTo"));
-        return "addExhibition.jsp";
+        return "view/admin/addExhibition.jsp";
     }
 
 }

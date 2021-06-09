@@ -19,21 +19,34 @@ public class Controller extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         logger.debug("Controller starts");
-        String address = getAddress(request, response);
+        String address = null;
+        try {
+            address = getAddress(request, response);
+        } catch (DBException ex) {
+            logger.error("Error with database occurred", ex);
+            response.sendRedirect("view/error/error500.jsp");
+            logger.debug("Controller finished, redirected to --> view/error/error500.jsp");
+        }
         RequestDispatcher disp = request.getRequestDispatcher(address);
         disp.forward(request, response);
-        logger.debug("Controller finished, forwarded to--> " + address);
+        logger.debug("Controller finished, forwarded to --> " + address);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         logger.debug("Controller starts");
-        String address = getAddress(request, response);
+        String address;
+        try {
+            address = getAddress(request, response);
+        } catch (DBException ex) {
+            logger.error("Error with database occurred", ex);
+            address = "view/error/error500.jsp";
+        }
         response.sendRedirect(address);
         logger.debug("Controller finished, redirected to --> " + address);
     }
 
-    private String getAddress(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private String getAddress(HttpServletRequest request, HttpServletResponse response) throws IOException, DBException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
@@ -45,17 +58,11 @@ public class Controller extends HttpServlet {
             command = CommandContainer.get(commandName);
         } catch (CommandNotFoundException ex) {
             logger.error("Error occurred", ex);
-            return "/jsp/error/error404.jsp";
+            return "view/error/error404.jsp";
         }
         logger.trace("Obtained command --> " + command);
 
-        String address;
-        try {
-            address = command.execute(request, response);
-        } catch (DBException ex) {
-            logger.error("Error occurred", ex);
-            return "/jsp/error/error500.jsp";
-        }
+        String address = command.execute(request, response);
         logger.trace("Address --> " + address);
         return address;
     }

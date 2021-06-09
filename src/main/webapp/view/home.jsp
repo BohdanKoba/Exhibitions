@@ -10,10 +10,10 @@
     <title>Title</title>
 </head>
 <body>
-<jsp:include page="jsp/fragments/header.jsp"/>
+<jsp:include page="fragments/header.jsp"/>
 <div>
-
+    <h1>HOME</h1>
 </div>
-<jsp:include page="jsp/fragments/footer.jsp"/>
+<jsp:include page="fragments/footer.jsp"/>
 </body>
 </html>

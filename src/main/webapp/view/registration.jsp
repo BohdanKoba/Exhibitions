@@ -11,9 +11,9 @@
     <jsp:include page="/editStyle/pagestyle.jsp"/>
 </head>
 <body>
-<jsp:include page="jsp/fragments/header.jsp"/>
+<jsp:include page="fragments/header.jsp"/>
 <div>
-    <form action="app" method="post" class="form-style" id="register">
+    <form action="${contextPath}/app" method="post" class="form-style" id="register">
         <input type="hidden" name="command" value="register"/>
         <div>
             <strong><fmt:message key="login"/></strong>
@@ -43,6 +43,6 @@
         <input style="width: 140px" type="submit" value="<fmt:message key="register"/>"/>
     </form>
 </div>
-<jsp:include page="jsp/fragments/footer.jsp"/>
+<jsp:include page="fragments/footer.jsp"/>
 </body>
 </html>
