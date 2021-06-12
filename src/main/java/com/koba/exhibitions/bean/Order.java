@@ -8,7 +8,8 @@ public class Order implements Serializable {
     private Integer id;
     private Integer accountId;
     private Integer exhibitionId;
-    private Integer orderStatus;
+    private Short quantity;
+    private Integer bill;
 
     public Integer getId() {
         return id;
@@ -34,12 +35,20 @@ public class Order implements Serializable {
         this.exhibitionId = exhibitionId;
     }
 
-    public Integer getOrderStatus() {
-        return orderStatus;
+    public Short getQuantity() {
+        return quantity;
     }
 
-    public void setOrderStatus(Integer orderStatus) {
-        this.orderStatus = orderStatus;
+    public void setQuantity(Short quantity) {
+        this.quantity = quantity;
+    }
+
+    public Integer getBill() {
+        return bill;
+    }
+
+    public void setBill(Integer bill) {
+        this.bill = bill;
     }
 
 }

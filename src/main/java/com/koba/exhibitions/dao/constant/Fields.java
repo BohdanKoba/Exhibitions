@@ -1,4 +1,4 @@
-package com.koba.exhibitions.dao.constants;
+package com.koba.exhibitions.dao.constant;
 
 /**
  * Class that contains database fields names.

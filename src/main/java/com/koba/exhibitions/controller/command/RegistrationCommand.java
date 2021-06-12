@@ -8,16 +8,16 @@ import com.koba.exhibitions.dao.exception.LoginExistsException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 public class RegistrationCommand implements Command {
     private static final Logger logger = LogManager.getLogger(RegistrationCommand.class);
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws DBException {
-        logger.debug("RegistrationCommand started");
-
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws DBException, IOException, ServletException {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
         String firstName = request.getParameter("firstName");
@@ -37,11 +37,12 @@ public class RegistrationCommand implements Command {
             accountDAO.registerAccount(data);
         } catch (LoginExistsException ex) {
             logger.warn("Could not create new account", ex);
-            // TODO write "user with this login is already exists"
-            return "view/registration.jsp";
+            request.setAttribute("errorMessage", "errorMessage");
+            request.getRequestDispatcher("view/registration.jsp").forward(request, response);
+            logger.debug("Forwarded to --> signIn.jsp");
+            return;
         }
-        logger.debug("RegistrationCommand finished");
-        return "view/signIn.jsp";
+        response.sendRedirect("view/signIn.jsp");
     }
 
 }

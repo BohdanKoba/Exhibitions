@@ -1,8 +1,8 @@
 package com.koba.exhibitions.dao.impl;
 
 import static com.koba.exhibitions.dao.connection.ConnectionPool.close;
-import static com.koba.exhibitions.dao.constants.Fields.*;
-import static com.koba.exhibitions.dao.constants.SQLQueries.*;
+import static com.koba.exhibitions.dao.constant.Fields.*;
+import static com.koba.exhibitions.dao.constant.SQLQueries.*;
 
 import com.koba.exhibitions.dao.AccountDAO;
 import com.koba.exhibitions.dao.exception.AuthorizationException;

@@ -8,10 +8,11 @@ import com.koba.exhibitions.dao.exception.DBException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 public class ChangeStatusCommand implements Command {
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws DBException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws DBException, IOException {
         String referer = request.getHeader("Referer");
         DAOFactory factory = DAOFactory.getInstance();
         ExhibitionDAO exhibitionDAO = factory.getExhibitionDAO();
@@ -25,7 +26,7 @@ public class ChangeStatusCommand implements Command {
         HttpSession session = request.getSession();
         exhibitionDAO.updateExhibitionStatus(id, status);
         session.removeAttribute("exhibitions");
-        return referer;
+        response.sendRedirect(referer);
     }
 
 }

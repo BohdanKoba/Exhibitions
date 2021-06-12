@@ -13,6 +13,7 @@
 <body>
 <jsp:include page="fragments/header.jsp"/>
 <figure class="center">
+    <h2 class="center">Welcome page</h2>
     <input type="image" alt="test" src="${contextPath}/img/friends.jpg" width="40%" height="40%/>
 </figure>
 <jsp:include page="fragments/footer.jsp"/>

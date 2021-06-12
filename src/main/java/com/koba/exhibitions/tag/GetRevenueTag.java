@@ -1,4 +1,4 @@
-package com.koba.exhibitions.tags;
+package com.koba.exhibitions.tag;
 
 import com.koba.exhibitions.bean.Exhibition;
 import org.apache.log4j.Logger;

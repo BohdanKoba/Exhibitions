@@ -40,6 +40,10 @@
         </div>
         <input name="email" type="email" required/>
         <br><br>
+        <c:if test="${not empty errorMessage}">
+            <fmt:message key="loginExistsErrorMessage"/>
+            <br><br>
+        </c:if>
         <input style="width: 140px" type="submit" value="<fmt:message key="register"/>"/>
     </form>
 </div>

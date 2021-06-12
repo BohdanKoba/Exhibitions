@@ -8,9 +8,12 @@ import com.koba.exhibitions.bean.Account;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import java.io.IOException;
 
 import static com.koba.exhibitions.controller.service.ExhibitionService.getExhibitions;
 
@@ -18,7 +21,7 @@ public class SignInCommand implements Command {
     private static final Logger logger = LogManager.getLogger(SignInCommand.class);
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws DBException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws DBException, ServletException, IOException {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
 
@@ -29,8 +32,10 @@ public class SignInCommand implements Command {
             account = accountDAO.authorizeAccount(login, password);
         } catch (AuthorizationException ex) {
             logger.warn("Could not authorize account", ex);
-            //TODO write message on screen
-            return "view/signIn.jsp";
+            request.setAttribute("errorMessage", "errorMessage");
+            request.getRequestDispatcher("view/signIn.jsp").forward(request, response);
+            logger.debug("Forwarded to --> signIn.jsp");
+            return;
         }
         HttpSession session = request.getSession();
         session.setMaxInactiveInterval(-1);
@@ -39,7 +44,7 @@ public class SignInCommand implements Command {
         if (account.getRole().equals("admin")) {
             getExhibitions(session);
         }
-        return "view/index.jsp";
+        response.sendRedirect("view/index.jsp");
     }
 
 }

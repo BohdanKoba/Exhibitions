@@ -1,41 +1,24 @@
 package com.koba.exhibitions.controller.command;
 
-import com.koba.exhibitions.bean.Account;
-import com.koba.exhibitions.bean.Exhibition;
-import com.koba.exhibitions.dao.ExhibitionDAO;
 import com.koba.exhibitions.dao.exception.DBException;
 import com.koba.exhibitions.dao.factory.DAOFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.io.IOException;
 
 public class BuyTicketsCommand implements Command {
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws DBException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws DBException, IOException {
         int id = Integer.parseInt(request.getParameter("exhibitionId"));
         int quantity = Integer.parseInt(request.getParameter("quantity"));
-
-        System.out.println(id + " : " + quantity);
-
-        return "view/buyTickets.jsp";
+        int bill = Integer.parseInt(request.getParameter("bill"));
 
 
+        DAOFactory factory = DAOFactory.getInstance();
 
 
-
-
-
-
-
-
-
-
-
+        response.sendRedirect("view/buyTickets.jsp");
 
 
 //        HttpSession session = request.getSession();
@@ -44,8 +27,6 @@ public class BuyTicketsCommand implements Command {
 //        String ex = request.getParameter("exhibitionTitle");
 //        String q = request.getParameter("quantity");
 //        System.out.println(q + " : " + ex);
-
-
 
 
 //        List<Exhibition> exhibitions = (List<Exhibition>)session.getAttribute("exhibitions");
@@ -65,7 +46,6 @@ public class BuyTicketsCommand implements Command {
 //        }
 
 
-
 //        Account account = (Account) session.getAttribute("account");
 //        if (account == null) {
 //            return "signIn.jsp";
@@ -78,7 +58,6 @@ public class BuyTicketsCommand implements Command {
 //                session.removeAttribute("exhibitions");
 //                throw new DBException("Can't buy tickets. Exhibition cancelled.");
 //            }
-//            //TODO add to card impl !!!!!!!!!!!!!
 //        }
     }
 

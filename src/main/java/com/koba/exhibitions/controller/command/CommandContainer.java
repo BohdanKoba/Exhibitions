@@ -25,7 +25,7 @@ public class CommandContainer {
         commands.put("changeStatus", new ChangeStatusCommand());
         commands.put("addExhibition", new AddExhibitionCommand());
         commands.put("buyTickets", new BuyTicketsCommand());
-        commands.put("maapExhibition", new MaapExhibition());
+        commands.put("getOrderExhibition", new GetOrderExhibition());
 
         log.debug("Command container was successfully initialized");
         log.trace("Number of commands --> " + commands.size());

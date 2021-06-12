@@ -4,6 +4,7 @@
 
 <fmt:setLocale value="${language}"/>
 <fmt:setBundle basename="resources"/>
+<!DOCTYPE html>
 <html>
 <jsp:include page="/editStyle/pagestyle.jsp"/>
 <body>

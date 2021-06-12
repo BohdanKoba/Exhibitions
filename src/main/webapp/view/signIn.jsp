@@ -17,13 +17,17 @@
         <h2 style="margin-top: -5px"><fmt:message key="signInTitle"/></h2>
         <div>
             <input type="hidden" name="command" value="signIn"/>
-            <label><input name="login" type="text" placeholder="<fmt:message key="login"/>"/></label>
+            <label><input name="login" type="text" required placeholder="<fmt:message key="login"/>"/></label>
         </div>
         <br>
         <div>
-            <label><input name="password" type="password" placeholder="<fmt:message key="password"/>"/></label>
+            <label><input name="password" type="password" required placeholder="<fmt:message key="password"/>"/></label>
         </div>
         <br>
+        <c:if test="${not empty errorMessage}">
+            <fmt:message key="authorizationErrorMessage"/>
+            <br><br>
+        </c:if>
         <input style="width: 60px" type="submit" value="<fmt:message key="signIn"/>"/>
         <br>
         <p><fmt:message key="haveAccountQestion"/></p>

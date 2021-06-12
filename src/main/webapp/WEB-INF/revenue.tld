@@ -11,7 +11,7 @@
 
     <tag>
         <name>getValue</name>
-        <tag-class>com.koba.exhibitions.tags.GetRevenueTag</tag-class>
+        <tag-class>com.koba.exhibitions.tag.GetRevenueTag</tag-class>
         <body-content>empty</body-content>
         <attribute>
             <name>exhibition</name>

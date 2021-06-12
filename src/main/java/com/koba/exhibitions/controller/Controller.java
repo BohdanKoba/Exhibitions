@@ -7,7 +7,6 @@ import com.koba.exhibitions.controller.command.exception.CommandNotFoundExceptio
 import org.apache.log4j.Logger;
 
 import java.io.*;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
@@ -18,53 +17,37 @@ public class Controller extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        logger.debug("Controller starts");
-        String address = null;
-        try {
-            address = getAddress(request, response);
-        } catch (DBException ex) {
-            logger.error("Error with database occurred", ex);
-            response.sendRedirect("view/error/error500.jsp");
-            logger.debug("Controller finished, redirected to --> view/error/error500.jsp");
-        }
-        RequestDispatcher disp = request.getRequestDispatcher(address);
-        disp.forward(request, response);
-        logger.debug("Controller finished, forwarded to --> " + address);
+        process(request, response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        logger.debug("Controller starts");
-        String address;
-        try {
-            address = getAddress(request, response);
-        } catch (DBException ex) {
-            logger.error("Error with database occurred", ex);
-            address = "view/error/error500.jsp";
-        }
-        response.sendRedirect(address);
-        logger.debug("Controller finished, redirected to --> " + address);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        process(request, response);
     }
 
-    private String getAddress(HttpServletRequest request, HttpServletResponse response) throws IOException, DBException {
+    private void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        logger.debug("=====Controller starts=====");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-
         String commandName = request.getParameter("command");
         logger.trace("Request parameter: command --> " + commandName);
-
-        Command command;
         try {
-            command = CommandContainer.get(commandName);
+            Command command = CommandContainer.get(commandName);
+            logger.debug("Obtained command --> " + command);
+            try {
+                command.execute(request, response);
+            } catch (DBException ex) {
+                logger.error("Error with database occurred", ex);
+                response.sendRedirect("view/error/error500.jsp");
+                logger.debug("redirected to --> error500.jsp");
+            }
+            logger.debug("Command executed");
         } catch (CommandNotFoundException ex) {
             logger.error("Error occurred", ex);
-            return "view/error/error404.jsp";
+            response.sendRedirect("view/error/error404.jsp");
+            logger.debug("redirected to --> error404.jsp");
         }
-        logger.trace("Obtained command --> " + command);
-
-        String address = command.execute(request, response);
-        logger.trace("Address --> " + address);
-        return address;
+        logger.debug("=====Controller finished=====");
     }
 
 }
