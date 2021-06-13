@@ -13,9 +13,11 @@ public interface DAOFactory {
 
     ExhibitionDAO getExhibitionDAO();
 
-    ExhibitionHallDAO getExhibitionHallDAO();
+//    ExhibitionHallDAO getExhibitionHallDAO();
 
     HallDAO getHallDAO();
 
     OrderDAO getOrderDAO();
+
+//    <T extends DAO> T getInstance(Class<T> clazz);
 }

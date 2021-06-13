@@ -20,4 +20,8 @@ public class SQLQueries {
             "AND end_date > CURDATE() ORDER BY title";
     public static final String UPDATE_EXHIBITION_STATUS = "UPDATE exhibition SET status=? WHERE id=?";
 
+    public static final String GET_HALL_BY_ID = "SELECT * FROM hall WHERE id=?";
+    public static final String GET_ALL_HALLS = "SELECT * FROM hall ORDER BY id";
+
+    public static final String GET_EXHIBITION_HALLS_ID = "SELECT hall_id FROM exhibition_hall where exhibition_id=?";
 }

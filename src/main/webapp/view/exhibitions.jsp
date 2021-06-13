@@ -50,6 +50,9 @@
                         <td>${exhibition.price}</td>
                         <td>${exhibition.startDate} - ${exhibition.endDate}</td>
                         <td>${exhibition.openingTime} - ${exhibition.closingTime}</td>
+<%--                        <td><c:forEach var="hall" items="${exhibition.exhibitionHall}">--%>
+<%--                            ${hall}--%>
+<%--                        </c:forEach></td>--%>
                         <c:if test="${account.role eq 'admin'}">
                             <td style="border: none">
                                 <form action="${contextPath}/app" method="post">

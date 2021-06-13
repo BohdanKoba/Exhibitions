@@ -4,7 +4,6 @@ import com.koba.exhibitions.bean.Exhibition;
 import com.koba.exhibitions.bean.ExhibitionData;
 import com.koba.exhibitions.dao.ExhibitionDAO;
 import com.koba.exhibitions.dao.exception.DBException;
-import com.koba.exhibitions.dao.constant.Fields;
 import com.koba.exhibitions.dao.constant.SQLQueries;
 import com.koba.exhibitions.dao.connection.ConnectionPool;
 import org.apache.log4j.LogManager;
@@ -16,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.koba.exhibitions.dao.connection.ConnectionPool.close;
+import static com.koba.exhibitions.dao.constant.SQLQueries.*;
+import static com.koba.exhibitions.dao.constant.Fields.*;
 
 public class ExhibitionDAOImpl implements ExhibitionDAO {
     private static final Logger logger = LogManager.getLogger(ExhibitionDAOImpl.class);
@@ -29,7 +30,7 @@ public class ExhibitionDAOImpl implements ExhibitionDAO {
 
         try {
             con = connectionPool.getConnection();
-            pstmt = con.prepareStatement(SQLQueries.CREATE_EXHIBITION);
+            pstmt = con.prepareStatement(CREATE_EXHIBITION);
             int k = 1;
             pstmt.setString(k++, data.getTitle());
             pstmt.setString(k++, data.getDescription());
@@ -59,7 +60,7 @@ public class ExhibitionDAOImpl implements ExhibitionDAO {
 
         try {
             con = connectionPool.getConnection();
-            pstmt = con.prepareStatement(SQLQueries.GET_EXHIBITION_BY_ID);
+            pstmt = con.prepareStatement(GET_EXHIBITION_BY_ID);
             pstmt.setInt(1, id);
             rs = pstmt.executeQuery();
             if (!rs.next()) {
@@ -110,16 +111,16 @@ public class ExhibitionDAOImpl implements ExhibitionDAO {
     private Exhibition mapExhibition(ResultSet rs) throws SQLException {
         Exhibition exhibition = new Exhibition();
 
-        exhibition.setId(rs.getInt(Fields.COLUMN_ID));
-        exhibition.setTitle(rs.getString(Fields.EXHIBITION_COLUMN_TITLE));
-        exhibition.setDescription(rs.getString(Fields.EXHIBITION_COLUMN_DESCRIPTION));
-        exhibition.setPrice(rs.getInt(Fields.EXHIBITION_COLUMN_PRICE));
-        exhibition.setStartDate(rs.getDate(Fields.EXHIBITION_COLUMN_START_DATE).toLocalDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
-        exhibition.setEndDate(rs.getDate(Fields.EXHIBITION_COLUMN_END_DATE).toLocalDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
-        exhibition.setOpeningTime(rs.getTime(Fields.EXHIBITION_COLUMN_OPENING_TIME).toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
-        exhibition.setClosingTime(rs.getTime(Fields.EXHIBITION_COLUMN_CLOSING_TIME).toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
-        exhibition.setStatus(rs.getString(Fields.EXHIBITION_COLUMN_STATUS));
-        exhibition.setTicketsSold(rs.getInt(Fields.EXHIBITION_COLUMN_TICKETS_SOLD));
+        exhibition.setId(rs.getInt(COLUMN_ID));
+        exhibition.setTitle(rs.getString(EXHIBITION_COLUMN_TITLE));
+        exhibition.setDescription(rs.getString(EXHIBITION_COLUMN_DESCRIPTION));
+        exhibition.setPrice(rs.getInt(EXHIBITION_COLUMN_PRICE));
+        exhibition.setStartDate(rs.getDate(EXHIBITION_COLUMN_START_DATE).toLocalDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+        exhibition.setEndDate(rs.getDate(EXHIBITION_COLUMN_END_DATE).toLocalDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+        exhibition.setOpeningTime(rs.getTime(EXHIBITION_COLUMN_OPENING_TIME).toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
+        exhibition.setClosingTime(rs.getTime(EXHIBITION_COLUMN_CLOSING_TIME).toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
+        exhibition.setStatus(rs.getString(EXHIBITION_COLUMN_STATUS));
+        exhibition.setTicketsSold(rs.getInt(EXHIBITION_COLUMN_TICKETS_SOLD));
 
         return exhibition;
     }

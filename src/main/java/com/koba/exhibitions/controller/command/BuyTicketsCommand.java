@@ -1,11 +1,14 @@
 package com.koba.exhibitions.controller.command;
 
+import com.koba.exhibitions.bean.Hall;
+import com.koba.exhibitions.dao.HallDAO;
 import com.koba.exhibitions.dao.exception.DBException;
 import com.koba.exhibitions.dao.factory.DAOFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 public class BuyTicketsCommand implements Command {
     @Override
@@ -14,9 +17,12 @@ public class BuyTicketsCommand implements Command {
         int quantity = Integer.parseInt(request.getParameter("quantity"));
         int bill = Integer.parseInt(request.getParameter("bill"));
 
-
         DAOFactory factory = DAOFactory.getInstance();
-
+        HallDAO hallDAO = factory.getHallDAO();
+        List<Hall> hallList = hallDAO.getAllHalls();
+        for (Hall hall: hallList) {
+            System.out.println(hall);
+        }
 
         response.sendRedirect("view/buyTickets.jsp");
 

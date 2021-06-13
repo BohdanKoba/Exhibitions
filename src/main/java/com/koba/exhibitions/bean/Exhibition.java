@@ -1,6 +1,7 @@
 package com.koba.exhibitions.bean;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Exhibition implements Serializable {
     private static final long serialVersionUID = 3375771738166093679L;
@@ -15,6 +16,7 @@ public class Exhibition implements Serializable {
     private String closingTime;
     private String status;
     private Integer ticketsSold;
+    private List<Hall> exhibitionHalls;
 
     public Integer getId() {
         return id;
@@ -94,6 +96,14 @@ public class Exhibition implements Serializable {
 
     public void setTicketsSold(Integer ticketsSold) {
         this.ticketsSold = ticketsSold;
+    }
+
+    public List<Hall> getExhibitionHalls() {
+        return exhibitionHalls;
+    }
+
+    public void setExhibitionHalls(List<Hall> exhibitionHalls) {
+        this.exhibitionHalls = exhibitionHalls;
     }
 
 }

@@ -26,10 +26,10 @@ public class MySqlDAOFactory implements DAOFactory {
         return new ExhibitionDAOImpl();
     }
 
-    @Override
-    public ExhibitionHallDAO getExhibitionHallDAO() {
-        return new ExhibitionHallDAOImpl();
-    }
+//    @Override
+//    public ExhibitionHallDAO getExhibitionHallDAO() {
+//        return new ExhibitionHallDAOImpl();
+//    }
 
     @Override
     public HallDAO getHallDAO() {
@@ -41,4 +41,12 @@ public class MySqlDAOFactory implements DAOFactory {
         return new OrderDAOImpl();
     }
 
+//    @Override
+//    public <T extends DAO> T getInstance(Class<T> clazz) {
+//        return getDAO(clazz);
+//    }
+//
+//    public <T extends DAO> T getDAO(Class<AccountDAO> clazz) {
+//        return new AccountDAOImpl();
+//    }
 }

@@ -1,6 +1,7 @@
 package com.koba.exhibitions.controller.command;
 
 import com.koba.exhibitions.controller.command.exception.CommandNotFoundException;
+import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import java.util.HashMap;
@@ -10,7 +11,7 @@ import java.util.Map;
  * Holder for all commands.
  */
 public class CommandContainer {
-    private static final Logger log = Logger.getLogger(CommandContainer.class);
+    private static final Logger log = LogManager.getLogger(CommandContainer.class);
 
     private static final Map<String, Command> commands = new HashMap<>();
 

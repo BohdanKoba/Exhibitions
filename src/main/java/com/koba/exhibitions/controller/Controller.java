@@ -26,7 +26,7 @@ public class Controller extends HttpServlet {
     }
 
     private void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        logger.debug("=====Controller starts=====");
+        logger.debug("========Controller starts========");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         String commandName = request.getParameter("command");
@@ -47,7 +47,7 @@ public class Controller extends HttpServlet {
             response.sendRedirect("view/error/error404.jsp");
             logger.debug("redirected to --> error404.jsp");
         }
-        logger.debug("=====Controller finished=====");
+        logger.debug("========Controller finished========");
     }
 
 }

@@ -1,5 +1,6 @@
 package com.koba.exhibitions.controller.command;
 
+import com.koba.exhibitions.bean.Exhibition;
 import com.koba.exhibitions.dao.ExhibitionDAO;
 import com.koba.exhibitions.dao.exception.DBException;
 import com.koba.exhibitions.dao.factory.DAOFactory;
@@ -15,8 +16,8 @@ public class GetOrderExhibition implements Command{
 
         DAOFactory factory = DAOFactory.getInstance();
         ExhibitionDAO exhibitionDAO = factory.getExhibitionDAO();
-//        OrderExhibition exhibition = exhibitionDAO.getExhibition(id);
-//        request.getSession().setAttribute("exhibition", exhibition);
+        Exhibition exhibition = exhibitionDAO.getExhibition(id);
+        request.getSession().setAttribute("exhibition", exhibition);
         response.sendRedirect("view/buyTickets.jsp");
     }
 }
