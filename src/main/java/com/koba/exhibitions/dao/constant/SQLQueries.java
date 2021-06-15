@@ -22,6 +22,10 @@ public class SQLQueries {
 
     public static final String GET_HALL_BY_ID = "SELECT * FROM hall WHERE id=?";
     public static final String GET_ALL_HALLS = "SELECT * FROM hall ORDER BY id";
+    public static final String GET_EXHIBITION_HALLS_ID = "SELECT hall_id FROM exhibition_hall WHERE exhibition_id=?";
 
-    public static final String GET_EXHIBITION_HALLS_ID = "SELECT hall_id FROM exhibition_hall where exhibition_id=?";
+    public static final String CREATE_ORDER = "INSERT INTO account_order (account_id, exhibition_id, quantity, bill) " +
+            "VALUES (?, ?, ?, ?)";
+    public static final String GET_ACCOUNT_ORDERS = "SELECT * FROM account_order WHERE account_id=?";
+
 }

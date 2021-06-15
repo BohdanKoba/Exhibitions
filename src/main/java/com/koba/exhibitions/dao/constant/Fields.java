@@ -28,12 +28,9 @@ public class Fields {
 
     public static final String HALL_COLUMN_HALL_NAME = "hall_name";
 
-    public static final String ORDER_COLUMN_BILL = "bill";
-    public static final String ORDER_COLUMN_ORDER_STATUS = "order_status";
-    public static final String ORDER_COLUMN_ACCOUNT_ID = "account_id";
-
-    public static final String ORDER_EXHIBITION_COLUMN_ACCOUNT_ORDER_ID = "account_order_id";
-    public static final String ORDER_EXHIBITION_COLUMN_EXHIBITION_ID = "exhibition_id";
-    public static final String ORDER_EXHIBITION_COLUMN_COUNT = "count";
+    public static final String ACCOUNT_ORDER_COLUMN_ACCOUNT_ID = "account_id";
+    public static final String ACCOUNT_ORDER_COLUMN_EXHIBITION_ID = "exhibition_id";
+    public static final String ACCOUNT_ORDER_COLUMN_QUANTITY = "quantity";
+    public static final String ACCOUNT_ORDER_COLUMN_BILL = "bill";
 
 }

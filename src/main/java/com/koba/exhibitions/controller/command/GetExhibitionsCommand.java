@@ -1,5 +1,6 @@
 package com.koba.exhibitions.controller.command;
 
+import com.koba.exhibitions.controller.service.ExhibitionService;
 import com.koba.exhibitions.dao.exception.DBException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -20,8 +21,9 @@ public class GetExhibitionsCommand implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String referer = request.getHeader("Referer");
         HttpSession session = request.getSession();
+        ExhibitionService service = new ExhibitionService();
         try {
-            getExhibitions(session);
+            service.getExhibitions(session);
         } catch (DBException ex) {
             logger.error("Error with database occurred", ex);
             request.setAttribute("errorMessage", "errorMessage");

@@ -4,6 +4,7 @@ import static com.koba.exhibitions.dao.connection.ConnectionPool.close;
 import static com.koba.exhibitions.dao.constant.Fields.*;
 import static com.koba.exhibitions.dao.constant.SQLQueries.*;
 
+import com.koba.exhibitions.controller.dependencyInjection.Component;
 import com.koba.exhibitions.dao.AccountDAO;
 import com.koba.exhibitions.dao.exception.AuthorizationException;
 import com.koba.exhibitions.dao.exception.DBException;
@@ -19,6 +20,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+@Component
 public class AccountDAOImpl implements AccountDAO {
     private static final Logger logger = LogManager.getLogger(AccountDAOImpl.class);
 

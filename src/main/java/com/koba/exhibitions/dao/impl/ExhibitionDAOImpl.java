@@ -2,9 +2,9 @@ package com.koba.exhibitions.dao.impl;
 
 import com.koba.exhibitions.bean.Exhibition;
 import com.koba.exhibitions.bean.ExhibitionData;
+import com.koba.exhibitions.controller.dependencyInjection.Component;
 import com.koba.exhibitions.dao.ExhibitionDAO;
 import com.koba.exhibitions.dao.exception.DBException;
-import com.koba.exhibitions.dao.constant.SQLQueries;
 import com.koba.exhibitions.dao.connection.ConnectionPool;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -18,6 +18,7 @@ import static com.koba.exhibitions.dao.connection.ConnectionPool.close;
 import static com.koba.exhibitions.dao.constant.SQLQueries.*;
 import static com.koba.exhibitions.dao.constant.Fields.*;
 
+@Component
 public class ExhibitionDAOImpl implements ExhibitionDAO {
     private static final Logger logger = LogManager.getLogger(ExhibitionDAOImpl.class);
 
@@ -79,12 +80,12 @@ public class ExhibitionDAOImpl implements ExhibitionDAO {
 
     @Override
     public List<Exhibition> getAllExhibitions() throws DBException {
-        return getExhibitions(SQLQueries.GET_ALL_EXHIBITIONS);
+        return getExhibitions(GET_ALL_EXHIBITIONS);
     }
 
     @Override
     public List<Exhibition> getAvailableExhibitions() throws DBException {
-        return getExhibitions(SQLQueries.GET_AVAILABLE_EXHIBITIONS);
+        return getExhibitions(GET_AVAILABLE_EXHIBITIONS);
     }
 
     @Override
@@ -94,7 +95,7 @@ public class ExhibitionDAOImpl implements ExhibitionDAO {
 
         try {
             con = connectionPool.getConnection();
-            pstmt = con.prepareStatement(SQLQueries.UPDATE_EXHIBITION_STATUS);
+            pstmt = con.prepareStatement(UPDATE_EXHIBITION_STATUS);
             int k = 1;
             pstmt.setString(k++, status);
             pstmt.setInt(k++, id);

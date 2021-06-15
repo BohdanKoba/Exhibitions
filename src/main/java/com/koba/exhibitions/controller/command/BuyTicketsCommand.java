@@ -1,70 +1,31 @@
 package com.koba.exhibitions.controller.command;
 
-import com.koba.exhibitions.bean.Hall;
-import com.koba.exhibitions.dao.HallDAO;
+import com.koba.exhibitions.bean.OrderData;
+import com.koba.exhibitions.controller.service.OrderService;
 import com.koba.exhibitions.dao.exception.DBException;
-import com.koba.exhibitions.dao.factory.DAOFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 public class BuyTicketsCommand implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws DBException, IOException {
-        int id = Integer.parseInt(request.getParameter("exhibitionId"));
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
+        int accountId = Integer.parseInt(request.getParameter("accountId"));
+        int exhibitionId = Integer.parseInt(request.getParameter("exhibitionId"));
+        short quantity = Short.parseShort(request.getParameter("quantity"));
         int bill = Integer.parseInt(request.getParameter("bill"));
 
-        DAOFactory factory = DAOFactory.getInstance();
-        HallDAO hallDAO = factory.getHallDAO();
-        List<Hall> hallList = hallDAO.getAllHalls();
-        for (Hall hall: hallList) {
-            System.out.println(hall);
-        }
+        OrderData data = new OrderData();
+        data.setAccountId(accountId);
+        data.setExhibitionId(exhibitionId);
+        data.setQuantity(quantity);
+        data.setBill(bill);
+
+        OrderService service = new OrderService();
+        service.createOrder(data);
 
         response.sendRedirect("view/buyTickets.jsp");
-
-
-//        HttpSession session = request.getSession();
-//        System.out.println(request.getParameter("qty") + " : " + request.getParameter("exhibition"));
-////        String s = session.getAttribute()
-//        String ex = request.getParameter("exhibitionTitle");
-//        String q = request.getParameter("quantity");
-//        System.out.println(q + " : " + ex);
-
-
-//        List<Exhibition> exhibitions = (List<Exhibition>)session.getAttribute("exhibitions");
-//        List list = new ArrayList();
-//        Map map = request.getParameterMap();
-//        for (Object key: map.keySet())
-//        {
-//            String keyStr = (String)key;
-//            String[] value = (String[])map.get(keyStr);
-//            System.out.println("Key " + key + "   :   " + Arrays.toString(value));
-//        }
-//        for (Map.Entry<String, String[]> entry : map.entrySet()) {
-//            System.out.println(entry.getKey() + ":" + entry.toString());
-//        }
-//        for (Map.Entry<String, Object> entry : map.entrySet()) {
-//            System.out.println(entry.getKey() + ":" + entry.getValue().toString());
-//        }
-
-
-//        Account account = (Account) session.getAttribute("account");
-//        if (account == null) {
-//            return "signIn.jsp";
-//        } else {
-//            int id = Integer.parseInt(request.getParameter("exhibitionId"));
-//            DAOFactory factory = DAOFactory.getInstance();
-//            ExhibitionDAO exhibitionDAO = factory.getExhibitionDAO();
-//            Exhibition exhibition = exhibitionDAO.getExhibition(id);
-//            if (exhibition.getStatus().equals("canceled")) {
-//                session.removeAttribute("exhibitions");
-//                throw new DBException("Can't buy tickets. Exhibition cancelled.");
-//            }
-//        }
     }
 
 }

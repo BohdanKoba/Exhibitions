@@ -28,10 +28,11 @@
             <table>
                 <colgroup>
                     <col span="1" style="width: 14%;">
-                    <col span="1" style="width: 60%;">
+                    <col span="1" style="width: 55%;">
                     <col span="1" style="width: 8%;">
                     <col span="1" style="width: 10%;">
                     <col span="1" style="width: 8%;">
+                    <col span="1" style="width: 5%;">
                 </colgroup>
                 <tr>
                     <th><h3><fmt:message key="title"/></h3></th>
@@ -39,6 +40,7 @@
                     <th><h3><fmt:message key="price"/>, <fmt:message key="uah"/></h3></th>
                     <th><h3><fmt:message key="date"/></h3></th>
                     <th><h3><fmt:message key="time"/></h3></th>
+                    <th><h3><fmt:message key="halls"/></h3></th>
                     <c:if test="${account.role eq 'admin'}">
                         <th><h3><fmt:message key="status"/></h3></th>
                     </c:if>
@@ -50,9 +52,11 @@
                         <td>${exhibition.price}</td>
                         <td>${exhibition.startDate} - ${exhibition.endDate}</td>
                         <td>${exhibition.openingTime} - ${exhibition.closingTime}</td>
-<%--                        <td><c:forEach var="hall" items="${exhibition.exhibitionHall}">--%>
-<%--                            ${hall}--%>
-<%--                        </c:forEach></td>--%>
+                        <td>
+                            <c:forEach var="hall" items="${exhibition.exhibitionHalls}">
+                                ${hall.hallName}
+                            </c:forEach>
+                        </td>
                         <c:if test="${account.role eq 'admin'}">
                             <td style="border: none">
                                 <form action="${contextPath}/app" method="post">

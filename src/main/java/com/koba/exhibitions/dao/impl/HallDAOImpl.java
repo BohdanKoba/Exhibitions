@@ -1,6 +1,7 @@
 package com.koba.exhibitions.dao.impl;
 
 import com.koba.exhibitions.bean.Hall;
+import com.koba.exhibitions.controller.dependencyInjection.Component;
 import com.koba.exhibitions.dao.HallDAO;
 import com.koba.exhibitions.dao.connection.ConnectionPool;
 import com.koba.exhibitions.dao.exception.DBException;
@@ -15,6 +16,7 @@ import static com.koba.exhibitions.dao.connection.ConnectionPool.close;
 import static com.koba.exhibitions.dao.constant.Fields.*;
 import static com.koba.exhibitions.dao.constant.SQLQueries.*;
 
+@Component
 public class HallDAOImpl implements HallDAO {
     private static final Logger logger = LogManager.getLogger(HallDAOImpl.class);
 
@@ -45,20 +47,25 @@ public class HallDAOImpl implements HallDAO {
 
     @Override
     public List<Hall> getExhibitionHalls(Integer exhibitionId) throws DBException {
-        List<Hall> exhibitionHalls;
+        List<Hall> exhibitionHalls = new ArrayList<>();
 
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
+        ResultSet rs2;
         try {
             con = connectionPool.getConnection();
             pstmt = con.prepareStatement(GET_EXHIBITION_HALLS_ID);
             pstmt.setInt(1, exhibitionId);
             rs = pstmt.executeQuery();
-            if (!rs.next()) {
-                throw new SQLException();
+            pstmt = con.prepareStatement(GET_HALL_BY_ID);
+            while (rs.next()) {
+                pstmt.setInt(1, rs.getInt(EXHIBITION_HALL_COLUMN_HALL_ID));
+                rs2 = pstmt.executeQuery();
+                if (rs2.next()) {
+                    exhibitionHalls.add(mapHall(rs2));
+                }
             }
-            exhibitionHalls = mapExhibitonHallsList(rs);
             logger.info("List of exhibition halls has been successfully obtained");
         } catch (SQLException ex) {
             logger.error("Severe problem with database occurred", ex);
@@ -68,25 +75,6 @@ public class HallDAOImpl implements HallDAO {
         }
         return exhibitionHalls;
     }
-
-    private List<Hall> mapExhibitonHallsList(ResultSet rs) {
-        List<Hall> exhibitionHalls = new ArrayList<>();
-
-        while (rs.next()) {
-            exhibitionHalls
-            hallsIdList.add(rs.getInt(EXHIBITION_HALL_COLUMN_HALL_ID));
-        }
-
-        return exhibitionHalls;
-    }
-
-//    private List<Integer> mapHallsIdList(ResultSet rs) throws SQLException {
-//        List<Integer> hallsIdList = new ArrayList<>();
-//        while (rs.next()) {
-//            hallsIdList.add(rs.getInt(EXHIBITION_HALL_COLUMN_HALL_ID));
-//        }
-//        return hallsIdList;
-//    }
 
     private List<Hall> mapHallsList(ResultSet rs) throws SQLException {
         List<Hall> halls = new ArrayList<>();
