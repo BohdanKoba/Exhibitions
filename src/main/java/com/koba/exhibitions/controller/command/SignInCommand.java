@@ -1,5 +1,7 @@
 package com.koba.exhibitions.controller.command;
 
+import com.koba.exhibitions.controller.service.AccountService;
+import com.koba.exhibitions.controller.service.ExhibitionService;
 import com.koba.exhibitions.dao.exception.AuthorizationException;
 import com.koba.exhibitions.dao.exception.DBException;
 import com.koba.exhibitions.dao.factory.DAOFactory;
@@ -15,8 +17,6 @@ import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-import static com.koba.exhibitions.controller.service.ExhibitionService.getExhibitions;
-
 public class SignInCommand implements Command {
     private static final Logger logger = LogManager.getLogger(SignInCommand.class);
 
@@ -25,11 +25,10 @@ public class SignInCommand implements Command {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
 
-        DAOFactory factory = DAOFactory.getInstance();
-        AccountDAO accountDAO = factory.getAccountDAO();
+        AccountService service = new AccountService();
         Account account;
         try {
-            account = accountDAO.authorizeAccount(login, password);
+            account = service.authorizeAccount(login, password);
         } catch (AuthorizationException ex) {
             logger.warn("Could not authorize account", ex);
             request.setAttribute("errorMessage", "errorMessage");
@@ -40,9 +39,9 @@ public class SignInCommand implements Command {
         HttpSession session = request.getSession();
         session.setMaxInactiveInterval(-1);
         session.setAttribute("account", account);
-        session.setAttribute("signedIn", true);
         if (account.getRole().equals("admin")) {
-            getExhibitions(session);
+            ExhibitionService exhibitionService = new ExhibitionService();
+            exhibitionService.getExhibition(account.getId());
         }
         response.sendRedirect("view/index.jsp");
     }

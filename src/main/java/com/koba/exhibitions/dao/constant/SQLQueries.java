@@ -26,6 +26,7 @@ public class SQLQueries {
 
     public static final String CREATE_ORDER = "INSERT INTO account_order (account_id, exhibition_id, quantity, bill) " +
             "VALUES (?, ?, ?, ?)";
-    public static final String GET_ACCOUNT_ORDERS = "SELECT * FROM account_order WHERE account_id=?";
+    public static final String GET_ACCOUNT_ORDERS = "SELECT * FROM account_order ao JOIN exhibition e ON " +
+        "ao.exhibition_id = e.id WHERE ao.account_id=?";
 
 }

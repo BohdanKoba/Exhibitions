@@ -5,34 +5,61 @@ import java.io.Serializable;
 public class Order implements Serializable {
     private static final long serialVersionUID = 4341257774138805380L;
 
-    private Integer id;
-    private Integer accountId;
-    private Integer exhibitionId;
+    private String title;
+    private String startDate;
+    private String endDate;
+    private String openingTime;
+    private String closingTime;
+    private Integer price;
     private Short quantity;
     private Integer bill;
 
-    public Integer getId() {
-        return id;
+    public String getTitle() {
+        return title;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public Integer getAccountId() {
-        return accountId;
+    public String getStartDate() {
+        return startDate;
     }
 
-    public void setAccountId(Integer accountId) {
-        this.accountId = accountId;
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
     }
 
-    public Integer getExhibitionId() {
-        return exhibitionId;
+    public String getEndDate() {
+        return endDate;
     }
 
-    public void setExhibitionId(Integer exhibitionId) {
-        this.exhibitionId = exhibitionId;
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getOpeningTime() {
+        return openingTime;
+    }
+
+    public void setOpeningTime(String openingTime) {
+        this.openingTime = openingTime;
+    }
+
+    public String getClosingTime() {
+        return closingTime;
+    }
+
+    public void setClosingTime(String closingTime) {
+        this.closingTime = closingTime;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 
     public Short getQuantity() {

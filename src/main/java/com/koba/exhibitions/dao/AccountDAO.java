@@ -5,9 +5,8 @@ import com.koba.exhibitions.dao.exception.DBException;
 import com.koba.exhibitions.bean.Account;
 import com.koba.exhibitions.bean.RegistrationData;
 import com.koba.exhibitions.dao.exception.LoginExistsException;
-import com.koba.exhibitions.dao.factory.DAO;
 
-public interface AccountDAO /*extends DAO*/ {
+public interface AccountDAO {
     /**
      * Registers new user account.
      *

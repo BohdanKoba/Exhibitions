@@ -10,6 +10,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,9 +60,6 @@ public class OrderDAOImpl implements OrderDAO {
             pstmt = con.prepareStatement(GET_ACCOUNT_ORDERS);
             pstmt.setInt(1, accountId);
             rs = pstmt.executeQuery();
-            if (!rs.next()) {
-                throw new SQLException();
-            }
             orders = mapOrdersList(rs);
             logger.info("List of orders has been successfully obtained");
         } catch (SQLException ex) {
@@ -85,11 +83,14 @@ public class OrderDAOImpl implements OrderDAO {
     private Order mapOrder(ResultSet rs) throws SQLException {
         Order order = new Order();
 
-        order.setId(rs.getInt(COLUMN_ID));
-        order.setAccountId(rs.getInt(ACCOUNT_ORDER_COLUMN_ACCOUNT_ID));
-        order.setExhibitionId(rs.getInt(ACCOUNT_ORDER_COLUMN_EXHIBITION_ID));
+        order.setTitle(rs.getString(EXHIBITION_COLUMN_TITLE));
+        order.setStartDate(rs.getDate(EXHIBITION_COLUMN_START_DATE).toLocalDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+        order.setEndDate(rs.getDate(EXHIBITION_COLUMN_END_DATE).toLocalDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+        order.setOpeningTime(rs.getTime(EXHIBITION_COLUMN_OPENING_TIME).toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
+        order.setClosingTime(rs.getTime(EXHIBITION_COLUMN_CLOSING_TIME).toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
+        order.setPrice(rs.getInt(EXHIBITION_COLUMN_PRICE));
         order.setQuantity(rs.getShort(ACCOUNT_ORDER_COLUMN_QUANTITY));
-        order.setExhibitionId(rs.getInt(ACCOUNT_ORDER_COLUMN_BILL));
+        order.setBill(rs.getInt(ACCOUNT_ORDER_COLUMN_BILL));
 
         return order;
     }

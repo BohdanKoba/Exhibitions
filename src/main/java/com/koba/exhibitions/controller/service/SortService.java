@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class SortService {
-    public static void sort(List<Exhibition> list, String sortMethod) {
+    public void sort(List<Exhibition> list, String sortMethod) {
         switch (sortMethod) {
             case ("ByNameInc"):
                 list.sort(Comparator.comparing(Exhibition::getTitle));

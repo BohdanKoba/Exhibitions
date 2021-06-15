@@ -24,7 +24,6 @@ public class BuyTicketsCommand implements Command {
 
         OrderService service = new OrderService();
         service.createOrder(data);
-
         response.sendRedirect("view/buyTickets.jsp");
     }
 

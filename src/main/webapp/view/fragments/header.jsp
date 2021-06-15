@@ -21,20 +21,27 @@
         <button type="submit" name="language" value="en">EN</button>
         <button type="submit" name="language" value="uk">UA</button>
     </form>
-    <c:if test="${not signedIn}">
+    <c:if test="${empty account}">
         <div class="header-panel">
             <a class="btn btn-primary" href="${contextPath}/view/signIn.jsp"><fmt:message key="signIn"/></a>
 <%--            <button style="width: 100px"><a class="linkButton" href="${contextPath}/view/signIn.jsp"><fmt:message--%>
 <%--                    key="signIn"/></a></button>--%>
         </div>
     </c:if>
-    <c:if test="${signedIn}">
+    <c:if test="${not empty account}">
         <form class="header-panel" action="${contextPath}/app" method="post">
             <input type="hidden" name="command" value="signOut"/>
             <button type="submit"><fmt:message key="signOut"/></button>
         </form>
     </c:if>
     <hr>
+<%--    +++++++++++++++++++++ WORKS ++++++++++++++++++++++--%>
+    <ul>
+        <li><a href="${contextPath}/app?command=getExhibitions">press</a> </li>
+    </ul>
+<%--    +++++++++++++++++++++ WORKS ++++++++++++++++++++++--%>
+
+
 <%--    <nav class="navbar navbar-expand-lg navbar-light bg-light">--%>
 <%--        <div class="container-fluid">--%>
 <%--            <a class="navbar-brand" href="#">Navbar</a>--%>

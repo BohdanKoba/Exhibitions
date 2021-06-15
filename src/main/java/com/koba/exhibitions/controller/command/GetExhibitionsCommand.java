@@ -1,5 +1,7 @@
 package com.koba.exhibitions.controller.command;
 
+import com.koba.exhibitions.bean.Account;
+import com.koba.exhibitions.bean.Exhibition;
 import com.koba.exhibitions.controller.service.ExhibitionService;
 import com.koba.exhibitions.dao.exception.DBException;
 import org.apache.log4j.LogManager;
@@ -11,19 +13,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
-
-import static com.koba.exhibitions.controller.service.ExhibitionService.getExhibitions;
+import java.util.List;
 
 public class GetExhibitionsCommand implements Command {
     private static final Logger logger = LogManager.getLogger(GetExhibitionsCommand.class);
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String referer = request.getHeader("Referer");
         HttpSession session = request.getSession();
+        Account account = (Account) session.getAttribute("account");
         ExhibitionService service = new ExhibitionService();
         try {
-            service.getExhibitions(session);
+            List<Exhibition> exhibitions = service.getExhibitions(account);
+            session.setAttribute("exhibitions", exhibitions);
         } catch (DBException ex) {
             logger.error("Error with database occurred", ex);
             request.setAttribute("errorMessage", "errorMessage");
@@ -31,7 +33,7 @@ public class GetExhibitionsCommand implements Command {
             logger.debug("Forwarded to --> error500.jsp");
             return;
         }
-        response.sendRedirect(referer);
+        request.getRequestDispatcher("view/exhibitions.jsp").forward(request, response);
     }
 
 }

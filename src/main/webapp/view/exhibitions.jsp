@@ -12,9 +12,9 @@
 </head>
 <body>
 <jsp:include page="fragments/header.jsp"/>
-<c:if test="${empty exhibitions}">
-    <c:import url="/app?command=getExhibitions"/>
-</c:if>
+<%--<c:if test="${empty exhibitions}">--%>
+<%--    <c:import url=""/>--%>
+<%--</c:if>--%>
 <c:if test="${empty errorMessage}">
     <div>
         <div class="table">
