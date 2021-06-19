@@ -10,7 +10,7 @@
     <title><fmt:message key="homePage"/></title>
 </head>
 <body>
-<a id="getOrders" onloadstart="getOrdersFunction()" href="${contextPath}/app?command=getAccountOrders"></a>
+<button type="hidden" name="getOrders" value="${contextPath}/app?command=getAccountOrders" onloadstart="getOrdersFunction()"/>
 <script>
     function getOrdersFunction() {
         document.getElementById("getOrders").click();
@@ -39,14 +39,14 @@
     <h1 class="center"><fmt:message key="myPurchases"/></h1>
     <div>
         <table class="center" id="tableCenter">
-<%--            <colgroup>--%>
-<%--                <col span="1" style="width: 600px;">--%>
-<%--                <col span="1" style="width: 150px;">--%>
-<%--                <col span="1" style="width: 110px;">--%>
-<%--                <col span="1" style="width: 120px;">--%>
-<%--                <col span="1" style="width: 150px;">--%>
-<%--                <col span="1" style="width: 120px;">--%>
-<%--            </colgroup>--%>
+            <colgroup>
+                <col span="1" style="width: 200px;">
+                <col span="1" style="width: 150px;">
+                <col span="1" style="width: 120px;">
+                <col span="1" style="width: 120px;">
+                <col span="1" style="width: 150px;">
+                <col span="1" style="width: 120px;">
+            </colgroup>
             <tr>
                 <th><h3><fmt:message key="title"/></h3></th>
                 <th><h3><fmt:message key="date"/></h3></th>

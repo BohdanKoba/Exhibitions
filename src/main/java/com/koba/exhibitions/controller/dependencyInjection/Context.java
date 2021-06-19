@@ -20,7 +20,7 @@ public class Context {
 
     @SneakyThrows
     public static <T> T getObject(Class<T> clazz) {
-        String className =  clazz.getCanonicalName();;
+        String className =  clazz.getCanonicalName();
         if (clazz.isInterface()) {
             Reflections reflections = new Reflections();
             Set<Class<? extends T>> classes = reflections.getSubTypesOf(clazz);
@@ -44,4 +44,29 @@ public class Context {
         }
     }
 
+    @SneakyThrows
+    public static <T> T getCommand(Class<T> clazz) {
+        String className =  clazz.getCanonicalName();
+        if (clazz.isInterface()) {
+            Reflections reflections = new Reflections();
+            Set<Class<? extends T>> classes = reflections.getSubTypesOf(clazz);
+            className = clazz.getCanonicalName();
+            clazz = (Class<T>) classes.iterator().next();
+        }
+        if (clazz.isAnnotationPresent(Component.class)) {
+            T existingInstance = (T) applicationContext.get(clazz.getCanonicalName());
+            if (existingInstance == null) {
+                Constructor constructor = clazz.getDeclaredConstructors()[0];
+                Class[] parameters = constructor.getParameterTypes();
+                Object[] parametersObjects = Arrays.stream(parameters).map(cls -> getObject(cls)).collect(Collectors.toList()).toArray();
+                Object instance = constructor.newInstance(parametersObjects);
+                applicationContext.put(className, instance);
+                logger.debug(clazz.getCanonicalName() + " created");
+                return clazz.cast(instance);
+            }
+            return existingInstance;
+        } else {
+            throw new RuntimeException("Can not create object of class " + clazz.getCanonicalName());
+        }
+    }
 }

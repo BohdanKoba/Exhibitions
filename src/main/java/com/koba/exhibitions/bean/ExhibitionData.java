@@ -1,8 +1,6 @@
 package com.koba.exhibitions.bean;
 
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.LocalTime;
 
 public class ExhibitionData implements Serializable {
     private static final long serialVersionUID = -6387753930867712943L;
@@ -10,10 +8,20 @@ public class ExhibitionData implements Serializable {
     private String title;
     private String description;
     private String price;
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private LocalTime openingTime;
-    private LocalTime closingTime;
+    private String startDate;
+    private String endDate;
+    private String openingTime;
+    private String closingTime;
+
+    public ExhibitionData(String title, String description, String price, String startDate, String endDate, String openingTime, String closingTime) {
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.openingTime = openingTime;
+        this.closingTime = closingTime;
+    }
 
     public String getTitle() {
         return title;
@@ -39,35 +47,35 @@ public class ExhibitionData implements Serializable {
         this.price = price;
     }
 
-    public LocalDate getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDate startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDate getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDate endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 
-    public LocalTime getOpeningTime() {
+    public String getOpeningTime() {
         return openingTime;
     }
 
-    public void setOpeningTime(LocalTime openingTime) {
+    public void setOpeningTime(String openingTime) {
         this.openingTime = openingTime;
     }
 
-    public LocalTime getClosingTime() {
+    public String getClosingTime() {
         return closingTime;
     }
 
-    public void setClosingTime(LocalTime closingTime) {
+    public void setClosingTime(String closingTime) {
         this.closingTime = closingTime;
     }
 

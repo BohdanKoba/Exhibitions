@@ -11,9 +11,6 @@
     <jsp:include page="/editStyle/pagestyle.jsp"/>
 </head>
 <jsp:include page="fragments/header.jsp"/>
-<c:if test="${empty exhibitions}">
-    <c:import url="/app?command=getExhibitions"/>
-</c:if>
 <br>
 <h2 class="center"><fmt:message key="createOrder"/></h2>
 <br>
@@ -24,7 +21,7 @@
             <option value="${exhibition.id}">${exhibition.title}</option>
         </c:forEach>
     </select>
-    <form name="selectedExhibition" action="${contextPath}/app" method="post">
+    <form name="selectedExhibition" action="${contextPath}/app" method="get">
         <input type="hidden" name="command" value="getOrderExhibition"/>
         <input type="hidden" id="exhibitionId" name="id">
     </form>
@@ -39,7 +36,6 @@
                 <col span="1" style="width: 600px;">
                 <col span="1" style="width: 150px;">
                 <col span="1" style="width: 110px;">
-                <col span="1" style="width: 110px;">
                 <col span="1" style="width: 120px;">
                 <col span="1" style="width: 150px;">
                 <col span="1" style="width: 120px;">
@@ -48,7 +44,6 @@
                 <th><h3><fmt:message key="title"/></h3></th>
                 <th><h3><fmt:message key="date"/></h3></th>
                 <th><h3><fmt:message key="time"/></h3></th>
-                <th><h3><fmt:message key="halls"/></h3></th>
                 <th><h3><fmt:message key="price"/>, <fmt:message key="uah"/></h3></th>
                 <th><h3><fmt:message key="quantity"/></h3></th>
                 <th><h3><fmt:message key="total"/></h3></th>
@@ -57,9 +52,6 @@
                 <td>${exhibition.title}</td>
                 <td>${exhibition.startDate} - ${exhibition.endDate}</td>
                 <td>${exhibition.openingTime} - ${exhibition.closingTime}</td>
-                <td>
-                    ${exhibition.exhibitionHalls}
-                </td>
                 <td><input name="exhibitionPrice" type="hidden" value="${exhibition.price}">${exhibition.price}</td>
                 <td><input onchange="calculateBill()" type="number" name="quantity" value="0" min="1" max="10"
                            onkeydown="return false"/></td>

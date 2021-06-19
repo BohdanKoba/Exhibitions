@@ -46,9 +46,11 @@
                 <strong><fmt:message key="date"/></strong>
             </div>
             <fmt:message key="from"/>
-            <input name="dateFrom" type="date" required/>
+            <input id="dateFrom" name="dateFrom" type="date" onclick="dateFromLimits()" oninput="enableDateTo()"
+                   required/>
             <fmt:message key="to"/>
-            <input name="dateTo" type="date" required/>
+            <input id="dateTo" name="dateTo" type="date" onclick="dateToLimits()" oninput="enableSetHalls()" disabled
+                   required/>
         </div>
         <br>
         <div>
@@ -60,11 +62,57 @@
             <fmt:message key="to"/>
             <input name="timeTo" type="time" required/>
         </div>
+<%--        <div>--%>
+<%--            <strong><fmt:message key="setHalls"/></strong>--%>
+<%--            <br>--%>
+<%--            <select name="halls" id="halls" >--%>
+<%--                <c:forEach items="e" var="${exhibitions}">--%>
+<%--                    <option value="volvo">${exhibition.price}</option>--%>
+<%--                    <option value="saab">Saab</option>--%>
+<%--                    <option value="opel">Opel</option>--%>
+<%--                    <option value="audi">Audi</option>--%>
+<%--                    <input type="checkbox" name="${e.title}" value="1"/>--%>
+<%--                </c:forEach>--%>
+<%--            </select>--%>
+<%--        </div>--%>
         <br>
         <input style="width: 100px" type="submit" value="<fmt:message key="add"/>"/>
-        <button style="width: 100px"><a class="linkButton" href="../exhibitions.jsp"><fmt:message key="cancel"/></a></button>
+        <button style="width: 100px"><a class="linkButton" href="../exhibitions.jsp"><fmt:message key="cancel"/></a>
+        </button>
     </form>
 </div>
+<script>
+    function enableDateTo() {
+        document.getElementById("dateTo").disabled = false;
+    }
+</script>
+<script>
+    function enableSetHalls() {
+        document.getElementById("halls").disabled = false;
+    }
+</script>
+<script>
+    function dateFromLimits() {
+        let dateFrom = document.getElementById("dateFrom");
+        let date = new Date();
+        let fDate = date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
+        date.setMonth(date.getMonth() + 6);
+        let tDate = date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
+        dateFrom.min = fDate;
+        dateFrom.max = tDate;
+    }
+</script>
+<script>
+    function dateToLimits() {
+        let dateTo = document.getElementById("dateTo");
+        let date = new Date(document.getElementById("dateFrom").value);
+        let minDate = new Date(date);
+        minDate.setDate(date.getDate() + 13);
+        dateTo.min = minDate.getFullYear() + '-' + String(minDate.getMonth() + 1).padStart(2, '0') + '-' + String(minDate.getDate()).padStart(2, '0');
+        date.setMonth(date.getMonth() + 3);
+        dateTo.max = date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
+    }
+</script>
 <jsp:include page="/view/fragments/footer.jsp"/>
 </body>
 </html>

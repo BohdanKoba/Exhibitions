@@ -1,8 +1,7 @@
 package com.koba.exhibitions.controller.command;
 
-import com.koba.exhibitions.dao.factory.DAOFactory;
+import com.koba.exhibitions.controller.service.AccountService;
 import com.koba.exhibitions.dao.exception.DBException;
-import com.koba.exhibitions.dao.AccountDAO;
 import com.koba.exhibitions.bean.RegistrationData;
 import com.koba.exhibitions.dao.exception.LoginExistsException;
 import org.apache.log4j.LogManager;
@@ -24,19 +23,12 @@ public class RegistrationCommand implements Command {
         String lastName = request.getParameter("lastName");
         String email = request.getParameter("email");
 
-        RegistrationData data = new RegistrationData();
-        data.setLogin(login);
-        data.setPassword(password);
-        data.setFirstName(firstName);
-        data.setLastName(lastName);
-        data.setEmail(email);
-
-        DAOFactory factory = DAOFactory.getInstance();
-        AccountDAO accountDAO = factory.getAccountDAO();
+        RegistrationData data = new RegistrationData(login, password, firstName, lastName, email);
+        AccountService accountService = new AccountService();
         try {
-            accountDAO.registerAccount(data);
+            accountService.registerAccount(data);
         } catch (LoginExistsException ex) {
-            logger.warn("Could not create new account", ex);
+            logger.warn("Could not create new account: " + ex.getMessage());
             request.setAttribute("errorMessage", "errorMessage");
             request.getRequestDispatcher("view/registration.jsp").forward(request, response);
             logger.debug("Forwarded to --> signIn.jsp");

@@ -44,7 +44,6 @@ public class ExhibitionDAOImpl implements ExhibitionDAO {
             pstmt.executeUpdate();
             logger.info("New exhibition has been successfully created");
         } catch (SQLException ex) {
-            logger.error("Severe problem with database occurred", ex);
             throw new DBException("Could not create new exhibition", ex);
         } finally {
             close(con, pstmt);
@@ -70,7 +69,6 @@ public class ExhibitionDAOImpl implements ExhibitionDAO {
             exhibition = mapExhibition(rs);
             logger.info("Exhibition has been successfully obtained");
         } catch (SQLException ex) {
-            logger.error("Severe problem with database occurred", ex);
             throw new DBException("Could not get exhibition", ex);
         } finally {
             close(con, pstmt, rs);
@@ -102,7 +100,6 @@ public class ExhibitionDAOImpl implements ExhibitionDAO {
             pstmt.executeUpdate();
             logger.info("Exhibition status has been successfully updated");
         } catch (SQLException ex) {
-            logger.error("Severe problem with database occurred", ex);
             throw new DBException("Could not update account status", ex);
         } finally {
             close(con, pstmt);
@@ -116,8 +113,8 @@ public class ExhibitionDAOImpl implements ExhibitionDAO {
         exhibition.setTitle(rs.getString(EXHIBITION_COLUMN_TITLE));
         exhibition.setDescription(rs.getString(EXHIBITION_COLUMN_DESCRIPTION));
         exhibition.setPrice(rs.getInt(EXHIBITION_COLUMN_PRICE));
-        exhibition.setStartDate(rs.getDate(EXHIBITION_COLUMN_START_DATE).toLocalDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
-        exhibition.setEndDate(rs.getDate(EXHIBITION_COLUMN_END_DATE).toLocalDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+        exhibition.setStartDate(rs.getString(EXHIBITION_COLUMN_START_DATE));
+        exhibition.setEndDate(rs.getString(EXHIBITION_COLUMN_END_DATE));
         exhibition.setOpeningTime(rs.getTime(EXHIBITION_COLUMN_OPENING_TIME).toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
         exhibition.setClosingTime(rs.getTime(EXHIBITION_COLUMN_CLOSING_TIME).toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
         exhibition.setStatus(rs.getString(EXHIBITION_COLUMN_STATUS));
@@ -140,7 +137,6 @@ public class ExhibitionDAOImpl implements ExhibitionDAO {
             exhibitions = mapExhibitionsList(rs);
             logger.info("List of exhibitions has been successfully obtained");
         } catch (SQLException ex) {
-            logger.error("Severe problem with database occurred", ex);
             throw new DBException("Could not obtain a list", ex);
         } finally {
             close(con, stmt, rs);

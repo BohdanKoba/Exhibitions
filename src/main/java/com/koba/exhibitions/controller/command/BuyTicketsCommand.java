@@ -16,12 +16,7 @@ public class BuyTicketsCommand implements Command {
         short quantity = Short.parseShort(request.getParameter("quantity"));
         int bill = Integer.parseInt(request.getParameter("bill"));
 
-        OrderData data = new OrderData();
-        data.setAccountId(accountId);
-        data.setExhibitionId(exhibitionId);
-        data.setQuantity(quantity);
-        data.setBill(bill);
-
+        OrderData data = new OrderData(accountId, exhibitionId, quantity, bill);
         OrderService service = new OrderService();
         service.createOrder(data);
         response.sendRedirect("view/buyTickets.jsp");

@@ -15,32 +15,42 @@
 <div class="container">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
-            crossorigin="anonymous"></script>
+            crossorigin="anonymous">
+    </script>
     <form action="${contextPath}/app" method="post">
         <input type="hidden" name="command" value="setLanguage"/>
         <button type="submit" name="language" value="en">EN</button>
         <button type="submit" name="language" value="uk">UA</button>
     </form>
-    <c:if test="${empty account}">
-        <div class="header-panel">
+    <div class="header-panel">
+        <c:if test="${empty account}">
             <a class="btn btn-primary" href="${contextPath}/view/signIn.jsp"><fmt:message key="signIn"/></a>
-<%--            <button style="width: 100px"><a class="linkButton" href="${contextPath}/view/signIn.jsp"><fmt:message--%>
-<%--                    key="signIn"/></a></button>--%>
-        </div>
-    </c:if>
-    <c:if test="${not empty account}">
-        <form class="header-panel" action="${contextPath}/app" method="post">
-            <input type="hidden" name="command" value="signOut"/>
-            <button type="submit"><fmt:message key="signOut"/></button>
-        </form>
-    </c:if>
+        </c:if>
+    </div>
+    <div class="header-panel">
+        <c:if test="${not empty account}">
+            <a class="btn btn-primary" href="${contextPath}/app?command=signOut"><fmt:message key="signOut"/></a>
+        </c:if>
+    </div>
     <hr>
-<%--    +++++++++++++++++++++ WORKS ++++++++++++++++++++++--%>
-    <ul>
-        <li><a href="${contextPath}/app?command=getExhibitions">press</a> </li>
-    </ul>
-<%--    +++++++++++++++++++++ WORKS ++++++++++++++++++++++--%>
-
+    <div>
+        <ul>
+            <li><a href="${contextPath}/view/index.jsp"><fmt:message key="mainPage"/></a></li>
+            <li><a href="${contextPath}/app?command=getExhibitions"><fmt:message key="exhibitions"/></a></li>
+            <c:if test="${account.role ne 'admin'}">
+                <li><a href="${contextPath}/view/buyTickets.jsp"><fmt:message key="buyTickets"/></a></li>
+                <li><a href="${contextPath}/view/home.jsp"><fmt:message key="homePage"/></a></li>
+            </c:if>
+            <c:if test="${account.role eq 'admin'}">
+                <li><a href="${contextPath}/view/admin/statistics.jsp"><fmt:message key="statistics"/></a></li>
+                <li><a href="${contextPath}/view/admin/addExhibition.jsp"><fmt:message key="addExhibition"/></a></li>
+                <li><a href="${contextPath}/view/admin/adminHome.jsp"><fmt:message key="homePage"/></a></li>
+            </c:if>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
 
 <%--    <nav class="navbar navbar-expand-lg navbar-light bg-light">--%>
 <%--        <div class="container-fluid">--%>
@@ -78,26 +88,22 @@
 <%--            </div>--%>
 <%--        </div>--%>
 <%--    </nav>--%>
-    <div class="navbar">
-        <form action="${contextPath}/app" method="post">
-            <input type="hidden" name="command" value="goTo"/>
-            <button type="submit" name="address" value="view/index.jsp"><fmt:message key="mainPage"/></button>
-            <button type="submit" name="address" value="view/exhibitions.jsp"><fmt:message key="exhibitions"/></button>
-            <c:if test="${account.role ne 'admin'}">
-                <button type="submit" name="address" value="view/buyTickets.jsp"><fmt:message
-                        key="buyTickets"/></button>
-                <button type="submit" name="address" value="view/home.jsp"><fmt:message key="homePage"/></button>
-            </c:if>
-            <c:if test="${account.role eq 'admin'}">
-                <button type="submit" name="address" value="view/admin/statistics.jsp"><fmt:message
-                        key="statistics"/></button>
-                <button type="submit" name="address" value="view/admin/addExhibition.jsp"><fmt:message
-                        key="addExhibition"/></button>
-                <button type="submit" name="address" value="view/admin/adminHome.jsp"><fmt:message
-                        key="homePage"/></button>
-            </c:if>
-        </form>
-    </div>
-</div>
-</body>
-</html>
+
+
+<%--    <div class="navbar">--%>
+<%--        <form action="${contextPath}/app" method="post">--%>
+<%--            <input type="hidden" name="command" value="goTo"/>--%>
+<%--            <button type="submit" name="address" value="view/index.jsp"><fmt:message key="mainPage"/></button>--%>
+<%--            <button type="submit" name="address" value="view/exhibitions.jsp"><fmt:message key="exhibitions"/></button>--%>
+<%--            <c:if test="${account.role ne 'admin'}">--%>
+<%--                <button type="submit" name="address" value="view/buyTickets.jsp"><fmt:message--%>
+<%--                        key="buyTickets"/></button>--%>
+<%--                <button type="submit" name="address" value="view/home.jsp"><fmt:message key="homePage"/></button>--%>
+<%--            </c:if>--%>
+<%--            <c:if test="${account.role eq 'admin'}">--%>
+<%--                <button type="submit" name="address" value="view/admin/statistics.jsp"><fmt:message key="statistics"/></button>--%>
+<%--                <button type="submit" name="address" value="view/admin/addExhibition.jsp"><fmt:message key="addExhibition"/></button>--%>
+<%--                <button type="submit" name="address" value="view/admin/adminHome.jsp"><fmt:message key="homePage"/></button>--%>
+<%--            </c:if>--%>
+<%--        </form>--%>
+<%--    </div>--%>

@@ -37,7 +37,7 @@ public class Controller extends HttpServlet {
             try {
                 command.execute(request, response);
             } catch (DBException ex) {
-                logger.error("Error with database occurred", ex);
+                logger.error("Severe problem with database occurred", ex);
                 response.sendRedirect("view/error/error500.jsp");
                 logger.debug("redirected to --> error500.jsp");
             }

@@ -43,11 +43,10 @@ public class AccountDAOImpl implements AccountDAO {
             try {
                 pstmt.executeUpdate();
             } catch (SQLException ex) {
-                throw new LoginExistsException("Account with such login is already exists");
+                throw new LoginExistsException("account with login \'" + data.getLogin() + "\' is already exists");
             }
             logger.info("New account has been successfully created");
         } catch (SQLException ex) {
-            logger.error("Severe problem with database occurred", ex);
             throw new DBException("Could not create new account", ex);
         } finally {
             close(con, pstmt);
@@ -70,12 +69,11 @@ public class AccountDAOImpl implements AccountDAO {
             pstmt.setString(k++, password);
             rs = pstmt.executeQuery();
             if (!rs.next()) {
-                throw new AuthorizationException("Wrong login or password");
+                throw new AuthorizationException("wrong login or password");
             }
             account = mapAccount(rs);
             logger.info("Account has been successfully authorized");
         } catch (SQLException ex) {
-            logger.error("Severe problem with database occurred", ex);
             throw new DBException("Could not authorize account", ex);
         } finally {
             close(con, pstmt, rs);
@@ -102,7 +100,6 @@ public class AccountDAOImpl implements AccountDAO {
             account = mapAccount(rs);
             logger.info("Account has been successfully obtained");
         } catch (SQLException ex) {
-            logger.error("Severe problem with database occurred", ex);
             throw new DBException("Could not get account", ex);
         } finally {
             close(con, pstmt, rs);
@@ -128,7 +125,6 @@ public class AccountDAOImpl implements AccountDAO {
             pstmt.executeUpdate();
             logger.info("Account info has been successfully updated");
         } catch (SQLException ex) {
-            logger.error("Severe problem with database occurred", ex);
             throw new DBException("Could not update account info", ex);
         } finally {
             close(con, pstmt);
@@ -147,7 +143,6 @@ public class AccountDAOImpl implements AccountDAO {
             pstmt.executeUpdate();
             logger.info("Account has been successfully deleted");
         } catch (SQLException ex) {
-            logger.error("Severe problem with database occurred", ex);
             throw new DBException("Could not delete account", ex);
         } finally {
             close(con, pstmt);

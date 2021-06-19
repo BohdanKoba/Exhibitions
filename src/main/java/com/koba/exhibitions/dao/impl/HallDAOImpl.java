@@ -37,7 +37,6 @@ public class HallDAOImpl implements HallDAO {
             halls = mapHallsList(rs);
             logger.info("List of halls has been successfully obtained");
         } catch (SQLException ex) {
-            logger.error("Severe problem with database occurred", ex);
             throw new DBException("Could not obtain a list", ex);
         } finally {
             close(con, stmt, rs);
@@ -68,7 +67,6 @@ public class HallDAOImpl implements HallDAO {
             }
             logger.info("List of exhibition halls has been successfully obtained");
         } catch (SQLException ex) {
-            logger.error("Severe problem with database occurred", ex);
             throw new DBException("Could not obtain a list", ex);
         } finally {
             close(con, pstmt, rs);

@@ -40,7 +40,6 @@ public class OrderDAOImpl implements OrderDAO {
             pstmt.executeUpdate();
             logger.info("New order has been successfully created");
         } catch (SQLException ex) {
-            logger.error("Severe problem with database occurred", ex);
             throw new DBException("Could not create new order", ex);
         } finally {
             close(con, pstmt);
@@ -63,7 +62,6 @@ public class OrderDAOImpl implements OrderDAO {
             orders = mapOrdersList(rs);
             logger.info("List of orders has been successfully obtained");
         } catch (SQLException ex) {
-            logger.error("Severe problem with database occurred", ex);
             throw new DBException("Could not obtain a list", ex);
         } finally {
             close(con, pstmt, rs);
@@ -84,8 +82,8 @@ public class OrderDAOImpl implements OrderDAO {
         Order order = new Order();
 
         order.setTitle(rs.getString(EXHIBITION_COLUMN_TITLE));
-        order.setStartDate(rs.getDate(EXHIBITION_COLUMN_START_DATE).toLocalDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
-        order.setEndDate(rs.getDate(EXHIBITION_COLUMN_END_DATE).toLocalDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+        order.setStartDate(rs.getString(EXHIBITION_COLUMN_START_DATE));
+        order.setEndDate(rs.getString(EXHIBITION_COLUMN_END_DATE));
         order.setOpeningTime(rs.getTime(EXHIBITION_COLUMN_OPENING_TIME).toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
         order.setClosingTime(rs.getTime(EXHIBITION_COLUMN_CLOSING_TIME).toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
         order.setPrice(rs.getInt(EXHIBITION_COLUMN_PRICE));

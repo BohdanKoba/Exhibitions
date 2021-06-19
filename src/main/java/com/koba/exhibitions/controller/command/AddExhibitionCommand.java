@@ -9,13 +9,13 @@ import java.io.IOException;
 public class AddExhibitionCommand implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws DBException, IOException {
-        System.out.println(request.getParameter("title"));
-        System.out.println(request.getParameter("description"));
-        System.out.println(request.getParameter("price"));
-        System.out.println(request.getParameter("dateFrom"));
-        System.out.println(request.getParameter("dateTo"));
-        System.out.println(request.getParameter("timeFrom"));
-        System.out.println(request.getParameter("timeTo"));
+        String title = request.getParameter("title");
+        String description = request.getParameter("description");
+        int price = Integer.parseInt(request.getParameter("price"));
+        String dateFrom = request.getParameter("dateFrom");
+        String dateTo = request.getParameter("dateTo");
+        String timeFrom = request.getParameter("timeFrom");
+        String timeTo = request.getParameter("timeTo");
         response.sendRedirect("view/admin/addExhibition.jsp");
     }
 

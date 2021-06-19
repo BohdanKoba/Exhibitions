@@ -10,13 +10,13 @@ import com.koba.exhibitions.dao.impl.OrderDAOImpl;
 import java.util.List;
 
 public class OrderService {
+    private final OrderDAO orderDAO = Context.getObject(OrderDAOImpl.class);
+
     public void createOrder(OrderData data) throws DBException {
-        OrderDAO orderDAO = Context.getObject(OrderDAOImpl.class);
         orderDAO.createOrder(data);
     }
 
     public List<Order> getOrders(Integer accountId) throws DBException {
-        OrderDAOImpl orderDAO = Context.getObject(OrderDAOImpl.class);
         return orderDAO.getOrders(accountId);
     }
 

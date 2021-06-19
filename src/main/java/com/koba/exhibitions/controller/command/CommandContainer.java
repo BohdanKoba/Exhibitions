@@ -16,18 +16,18 @@ public class CommandContainer {
     private static final Map<String, Command> commands = new HashMap<>();
 
     static {
-        commands.put("goTo", new GoToCommand());
         commands.put("signIn", new SignInCommand());
         commands.put("signOut", new SignOutCommand());
         commands.put("register", new RegistrationCommand());
         commands.put("setLanguage", new SetLanguageCommand());
         commands.put("getExhibitions", new GetExhibitionsCommand());
         commands.put("sortExhibitions", new SortExhibitionsCommand());
-        commands.put("changeStatus", new ChangeStatusCommand());
+//        commands.put("changeStatus", new ChangeStatusCommand(service));
         commands.put("addExhibition", new AddExhibitionCommand());
         commands.put("buyTickets", new BuyTicketsCommand());
         commands.put("getOrderExhibition", new GetOrderExhibition());
         commands.put("getAccountOrders", new GetAccountOrdersCommand());
+        commands.put("filterExhibitions", new FilterExhibitionsCommand());
 
         log.debug("Command container was successfully initialized");
         log.trace("Number of commands --> " + commands.size());

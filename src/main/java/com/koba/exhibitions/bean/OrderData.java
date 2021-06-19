@@ -10,6 +10,13 @@ public class OrderData implements Serializable {
     private Short quantity;
     private Integer bill;
 
+    public OrderData(Integer accountId, Integer exhibitionId, Short quantity, Integer bill) {
+        this.accountId = accountId;
+        this.exhibitionId = exhibitionId;
+        this.quantity = quantity;
+        this.bill = bill;
+    }
+
     public Integer getAccountId() {
         return accountId;
     }
