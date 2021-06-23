@@ -47,10 +47,10 @@
             </div>
             <fmt:message key="from"/>
             <input id="dateFrom" name="dateFrom" type="date" onclick="dateFromLimits()" oninput="enableDateTo()"
-                   required/>
+                   required onkeydown="return false"/>
             <fmt:message key="to"/>
-            <input id="dateTo" name="dateTo" type="date" onclick="dateToLimits()" oninput="enableSetHalls()" disabled
-                   required/>
+            <input id="dateTo" name="dateTo" type="date" onclick="dateToLimits()" onchange="enableSetHalls()" disabled
+                   required onkeydown="return false"/>
         </div>
         <br>
         <div>
@@ -62,22 +62,18 @@
             <fmt:message key="to"/>
             <input name="timeTo" type="time" required/>
         </div>
-<%--        <div>--%>
-<%--            <strong><fmt:message key="setHalls"/></strong>--%>
-<%--            <br>--%>
-<%--            <select name="halls" id="halls" >--%>
-<%--                <c:forEach items="e" var="${exhibitions}">--%>
-<%--                    <option value="volvo">${exhibition.price}</option>--%>
-<%--                    <option value="saab">Saab</option>--%>
-<%--                    <option value="opel">Opel</option>--%>
-<%--                    <option value="audi">Audi</option>--%>
-<%--                    <input type="checkbox" name="${e.title}" value="1"/>--%>
-<%--                </c:forEach>--%>
-<%--            </select>--%>
-<%--        </div>--%>
+        <div>
+            <strong><fmt:message key="setHalls"/></strong>
+            <br>
+            <select name="halls" id="halls" multiple disabled>
+                <c:forEach var="hall" items="${halls}">
+                    <option value="${hall.id}"/>${hall.hallName}</option>
+                </c:forEach>
+            </select>
+        </div>
         <br>
         <input style="width: 100px" type="submit" value="<fmt:message key="add"/>"/>
-        <button style="width: 100px"><a class="linkButton" href="../exhibitions.jsp"><fmt:message key="cancel"/></a>
+        <button style="width: 100px"><a class="linkButton" href="${contextPath}/view/index.jsp"><fmt:message key="cancel"/></a>
         </button>
     </form>
 </div>
@@ -88,6 +84,9 @@
 </script>
 <script>
     function enableSetHalls() {
+        let dateFrom = document.getElementById("dateFrom").value;
+        let dateTo = document.getElementById("dateTo").value;
+        import("${contextPath}/app?command=getAvailableHalls&dateFrom=" + dateFrom + "&dateTo=" + dateTo);
         document.getElementById("halls").disabled = false;
     }
 </script>

@@ -23,6 +23,10 @@ public class SQLQueries {
     public static final String GET_HALL_BY_ID = "SELECT * FROM hall WHERE id=?";
     public static final String GET_ALL_HALLS = "SELECT * FROM hall ORDER BY id";
     public static final String GET_EXHIBITION_HALLS_ID = "SELECT hall_id FROM exhibition_hall WHERE exhibition_id=?";
+    public static final String GET_AVAILABLE_HALLS = "SELECT * FROM hall h WHERE h.id NOT IN " +
+            "(SELECT eh.hall_id FROM exhibition_hall eh WHERE eh.exhibition_id IN " +
+            "(SELECT e.id FROM exhibition e WHERE (e.start_date between ? AND ?) " +
+            "OR (e.end_date between ? AND ?) OR (e.start_date < ? AND e.end_date > ?)))";
 
     public static final String CREATE_ORDER = "INSERT INTO account_order (account_id, exhibition_id, quantity, bill) " +
             "VALUES (?, ?, ?, ?)";

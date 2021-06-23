@@ -1,17 +1,0 @@
-
-I
-java:S1481"'Remove this unused "id" local variable.(¬ˆÈŠıÿÿÿÿ8¡ÁõÿŸ/
-Z	java:S106"9Replace this use of System.out or System.err by a logger.(¥ïıÿÿÿÿ8“ˆÕÿŸ/
-Q	java:S1257"<This block of commented-out lines of code should be removed.(™¶ÖŞ
-X
-java:S1854"6Remove this useless assignment to local variable "id".(¬ˆÈŠıÿÿÿÿ8¡ÁõÿŸ/
-Y
-java:S1854"<Remove this useless assignment to local variable "quantity".(ÃÒÕ·8¡ÁõÿŸ/
-K
-java:S1481")Remove this unused "bill" local variable.(ÑÜ²œúÿÿÿÿ8¡ÁõÿŸ/
-J
-java:S1481"-Remove this unused "quantity" local variable.(ÃÒÕ·8¡ÁõÿŸ/
-Z
-java:S1854"8Remove this useless assignment to local variable "bill".(ÑÜ²œúÿÿÿÿ8¡ÁõÿŸ/
-V	java:S125&"<This block of commented-out lines of code should be removed.(ÈÅÅ½ûÿÿÿÿ
-V	java:S125"<This block of commented-out lines of code should be removed.(‚ÓëŒÿÿÿÿÿ

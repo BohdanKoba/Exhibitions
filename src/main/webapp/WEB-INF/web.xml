@@ -26,18 +26,23 @@
     </listener>
 
     <filter>
-        <filter-name>AccessFilter</filter-name>
-        <filter-class>com.koba.exhibitions.controller.filter.AccessFilter</filter-class>
+        <filter-name>AdminAccessFilter</filter-name>
+        <filter-class>com.koba.exhibitions.controller.filter.AdminAccessFilter</filter-class>
     </filter>
     <filter-mapping>
-        <filter-name>AccessFilter</filter-name>
+        <filter-name>AdminAccessFilter</filter-name>
         <url-pattern>/view/admin/*</url-pattern>
     </filter-mapping>
 
-<!--    <error-page>-->
-<!--        <exception-type>com.koba.exhibitions.dao.exception.DBException</exception-type>-->
-<!--        <location>/view/error/error500.jsp</location>-->
-<!--    </error-page>-->
+    <filter>
+        <filter-name>ClientAccessFilter</filter-name>
+        <filter-class>com.koba.exhibitions.controller.filter.ClientAccessFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ClientAccessFilter</filter-name>
+        <url-pattern>/view/client/*</url-pattern>
+    </filter-mapping>
+
     <error-page>
         <error-code>500</error-code>
         <location>/view/error/error500.jsp</location>

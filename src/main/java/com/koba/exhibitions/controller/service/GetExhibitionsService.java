@@ -3,15 +3,17 @@ package com.koba.exhibitions.controller.service;
 import com.koba.exhibitions.bean.Account;
 import com.koba.exhibitions.bean.Exhibition;
 import com.koba.exhibitions.bean.Hall;
-import com.koba.exhibitions.controller.dependencyInjection.Context;
+import com.koba.exhibitions.controller.dependency_injection.Component;
+import com.koba.exhibitions.controller.dependency_injection.Context;
 import com.koba.exhibitions.dao.ExhibitionDAO;
 import com.koba.exhibitions.dao.HallDAO;
 import com.koba.exhibitions.dao.exception.DBException;
-import com.koba.exhibitions.dao.impl.ExhibitionDAOImpl;
-import com.koba.exhibitions.dao.impl.HallDAOImpl;
+import com.koba.exhibitions.dao.mysql_impl.ExhibitionDAOImpl;
+import com.koba.exhibitions.dao.mysql_impl.HallDAOImpl;
 
 import java.util.List;
 
+@Component
 public class GetExhibitionsService {
     private final ExhibitionDAO exhibitionDAO = Context.getObject(ExhibitionDAOImpl.class);
     private final HallDAO hallDAO = Context.getObject(HallDAOImpl.class);

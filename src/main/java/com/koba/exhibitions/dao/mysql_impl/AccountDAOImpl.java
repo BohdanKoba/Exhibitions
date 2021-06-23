@@ -1,10 +1,10 @@
-package com.koba.exhibitions.dao.impl;
+package com.koba.exhibitions.dao.mysql_impl;
 
 import static com.koba.exhibitions.dao.connection.ConnectionPool.close;
 import static com.koba.exhibitions.dao.constant.Fields.*;
 import static com.koba.exhibitions.dao.constant.SQLQueries.*;
 
-import com.koba.exhibitions.controller.dependencyInjection.Component;
+import com.koba.exhibitions.controller.dependency_injection.Component;
 import com.koba.exhibitions.dao.AccountDAO;
 import com.koba.exhibitions.dao.exception.AuthorizationException;
 import com.koba.exhibitions.dao.exception.DBException;

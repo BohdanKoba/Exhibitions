@@ -22,12 +22,13 @@ public class CommandContainer {
         commands.put("setLanguage", new SetLanguageCommand());
         commands.put("getExhibitions", new GetExhibitionsCommand());
         commands.put("sortExhibitions", new SortExhibitionsCommand());
-//        commands.put("changeStatus", new ChangeStatusCommand(service));
+        commands.put("changeStatus", new ChangeStatusCommand());
         commands.put("addExhibition", new AddExhibitionCommand());
         commands.put("buyTickets", new BuyTicketsCommand());
         commands.put("getOrderExhibition", new GetOrderExhibition());
         commands.put("getAccountOrders", new GetAccountOrdersCommand());
         commands.put("filterExhibitions", new FilterExhibitionsCommand());
+        commands.put("getAvailableHalls", new GetAvailableHallsCommand());
 
         log.debug("Command container was successfully initialized");
         log.trace("Number of commands --> " + commands.size());

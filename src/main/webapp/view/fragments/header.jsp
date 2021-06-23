@@ -34,76 +34,32 @@
     </div>
     <hr>
     <div>
-        <ul>
-            <li><a href="${contextPath}/view/index.jsp"><fmt:message key="mainPage"/></a></li>
-            <li><a href="${contextPath}/app?command=getExhibitions"><fmt:message key="exhibitions"/></a></li>
+        <ul class="nav justify-content-center">
+            <li class="nav-item"><a class="nav-link active" aria-current="page"
+                                    href="${contextPath}/view/index.jsp"><fmt:message key="mainPage"/></a>
+            </li>
+            <li class="nav-item"><a class="nav-link active" aria-current="page"
+                                    href="${contextPath}/app?command=getExhibitions"><fmt:message
+                    key="exhibitions"/></a></li>
             <c:if test="${account.role ne 'admin'}">
-                <li><a href="${contextPath}/view/buyTickets.jsp"><fmt:message key="buyTickets"/></a></li>
-                <li><a href="${contextPath}/view/home.jsp"><fmt:message key="homePage"/></a></li>
+                <li class="nav-item"><a class="nav-link active" aria-current="page"
+                                        href="${contextPath}/view/client/buyTickets.jsp"><fmt:message
+                        key="buyTickets"/></a></li>
+                <li class="nav-item"><a class="nav-link active" aria-current="page"
+                                        href="${contextPath}/view/client/home.jsp"><fmt:message
+                        key="homePage"/></a></li>
             </c:if>
             <c:if test="${account.role eq 'admin'}">
-                <li><a href="${contextPath}/view/admin/statistics.jsp"><fmt:message key="statistics"/></a></li>
-                <li><a href="${contextPath}/view/admin/addExhibition.jsp"><fmt:message key="addExhibition"/></a></li>
-                <li><a href="${contextPath}/view/admin/adminHome.jsp"><fmt:message key="homePage"/></a></li>
+                <li class="nav-item"><a class="nav-link active" aria-current="page"
+                                        href="${contextPath}/view/admin/statistics.jsp"><fmt:message
+                        key="statistics"/></a></li>
+                <li class="nav-item"><a class="nav-link active" aria-current="page"
+                                        href="${contextPath}/view/admin/addExhibition.jsp"><fmt:message
+                        key="addExhibition"/></a></li>
             </c:if>
         </ul>
     </div>
+    <br>
 </div>
 </body>
 </html>
-
-<%--    <nav class="navbar navbar-expand-lg navbar-light bg-light">--%>
-<%--        <div class="container-fluid">--%>
-<%--            <a class="navbar-brand" href="#">Navbar</a>--%>
-<%--            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">--%>
-<%--                <span class="navbar-toggler-icon"></span>--%>
-<%--            </button>--%>
-<%--            <div class="collapse navbar-collapse" id="navbarSupportedContent">--%>
-<%--                <ul class="navbar-nav me-auto mb-2 mb-lg-0">--%>
-<%--                    <li class="nav-item">--%>
-<%--                        <a class="nav-link active" aria-current="page" href="#">Home</a>--%>
-<%--                    </li>--%>
-<%--                    <li class="nav-item">--%>
-<%--                        <a class="nav-link" href="#">Link</a>--%>
-<%--                    </li>--%>
-<%--                    <li class="nav-item dropdown">--%>
-<%--                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">--%>
-<%--                            Dropdown--%>
-<%--                        </a>--%>
-<%--                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">--%>
-<%--                            <li><a class="dropdown-item" href="#">Action</a></li>--%>
-<%--                            <li><a class="dropdown-item" href="#">Another action</a></li>--%>
-<%--                            <li><hr class="dropdown-divider"></li>--%>
-<%--                            <li><a class="dropdown-item" href="#">Something else here</a></li>--%>
-<%--                        </ul>--%>
-<%--                    </li>--%>
-<%--                    <li class="nav-item">--%>
-<%--                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>--%>
-<%--                    </li>--%>
-<%--                </ul>--%>
-<%--                <form class="d-flex">--%>
-<%--                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">--%>
-<%--                    <button class="btn btn-outline-success" type="submit">Search</button>--%>
-<%--                </form>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--    </nav>--%>
-
-
-<%--    <div class="navbar">--%>
-<%--        <form action="${contextPath}/app" method="post">--%>
-<%--            <input type="hidden" name="command" value="goTo"/>--%>
-<%--            <button type="submit" name="address" value="view/index.jsp"><fmt:message key="mainPage"/></button>--%>
-<%--            <button type="submit" name="address" value="view/exhibitions.jsp"><fmt:message key="exhibitions"/></button>--%>
-<%--            <c:if test="${account.role ne 'admin'}">--%>
-<%--                <button type="submit" name="address" value="view/buyTickets.jsp"><fmt:message--%>
-<%--                        key="buyTickets"/></button>--%>
-<%--                <button type="submit" name="address" value="view/home.jsp"><fmt:message key="homePage"/></button>--%>
-<%--            </c:if>--%>
-<%--            <c:if test="${account.role eq 'admin'}">--%>
-<%--                <button type="submit" name="address" value="view/admin/statistics.jsp"><fmt:message key="statistics"/></button>--%>
-<%--                <button type="submit" name="address" value="view/admin/addExhibition.jsp"><fmt:message key="addExhibition"/></button>--%>
-<%--                <button type="submit" name="address" value="view/admin/adminHome.jsp"><fmt:message key="homePage"/></button>--%>
-<%--            </c:if>--%>
-<%--        </form>--%>
-<%--    </div>--%>

@@ -19,15 +19,10 @@ public class FilterExhibitionsCommand implements Command {
         LocalDate dateTo = LocalDate.parse(request.getParameter("dateTo"));
 
         List<Exhibition> filteredExhibitions = exhibitions.stream()
-                .filter(e -> ((LocalDate.parse(e.getStartDate()).compareTo(dateFrom) >= 0 &&
-                        LocalDate.parse(e.getEndDate()).compareTo(dateTo) <= 0)) ||
-                        ((LocalDate.parse(e.getStartDate()).compareTo(dateFrom) <= 0 &&
-                        LocalDate.parse(e.getEndDate()).compareTo(dateFrom) <= 0))).collect(Collectors.toList());
-
-        for (Exhibition e: filteredExhibitions) {
-            System.out.println(e.getTitle());
-            System.out.println(e.getStartDate() + " - " + e.getEndDate());
-        }
+                .filter(e -> (LocalDate.parse(e.getStartDate()).compareTo(dateFrom) >= 0 && LocalDate.parse(e.getStartDate()).compareTo(dateTo) <= 0) ||
+                        (LocalDate.parse(e.getEndDate()).compareTo(dateFrom) >= 0 && LocalDate.parse(e.getEndDate()).compareTo(dateFrom) <= 0) ||
+                        (LocalDate.parse(e.getStartDate()).compareTo(dateFrom) < 0 && LocalDate.parse(e.getEndDate()).compareTo(dateFrom) > 0))
+                .collect(Collectors.toList());
         request.setAttribute("exhibitions", filteredExhibitions);
         request.getRequestDispatcher("view/exhibitions.jsp").forward(request, response);
     }

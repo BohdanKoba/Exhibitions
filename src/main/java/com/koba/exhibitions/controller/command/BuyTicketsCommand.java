@@ -19,7 +19,7 @@ public class BuyTicketsCommand implements Command {
         OrderData data = new OrderData(accountId, exhibitionId, quantity, bill);
         OrderService service = new OrderService();
         service.createOrder(data);
-        response.sendRedirect("view/buyTickets.jsp");
+        response.sendRedirect("view/client/buyTickets.jsp");
     }
 
 }

@@ -14,34 +14,6 @@
         vertical-align: middle;
     }
 
-    /*.navbar {*/
-    /*    background-color: white;*/
-    /*    text-align: center;*/
-    /*    height: 50px;*/
-    /*    color: black;*/
-    /*}*/
-
-    /*.navbar button {*/
-    /*    width: 200px;*/
-    /*    height:50px;*/
-    /*    vertical-align: top;*/
-    /*    border: none;*/
-    /*    display: inline;*/
-    /*    background: none;*/
-    /*    text-transform: uppercase;*/
-    /*    font-weight: 700;*/
-    /*    color: black;*/
-    /*    letter-spacing: 1px;*/
-    /*    font-size: inherit;*/
-    /*    transition: all 0.3s;*/
-    /*    outline: none;*/
-    /*}*/
-
-    /*.navbar button:hover {*/
-    /*    color: white;*/
-    /*    background: black;*/
-    /*}*/
-
     #tableCenter {
         width:70%;
         margin-left:15%;
@@ -75,12 +47,12 @@
 
     #signIn {
         text-align: center;
-        max-width: 200px;
+        width: fit-content;
     }
 
     #register {
         text-align: center;
-        max-width: 200px;
+        width: fit-content;
     }
 
     #addExhibition {

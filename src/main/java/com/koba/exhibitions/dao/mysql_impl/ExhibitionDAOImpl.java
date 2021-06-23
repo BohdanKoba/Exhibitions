@@ -1,8 +1,8 @@
-package com.koba.exhibitions.dao.impl;
+package com.koba.exhibitions.dao.mysql_impl;
 
 import com.koba.exhibitions.bean.Exhibition;
 import com.koba.exhibitions.bean.ExhibitionData;
-import com.koba.exhibitions.controller.dependencyInjection.Component;
+import com.koba.exhibitions.controller.dependency_injection.Component;
 import com.koba.exhibitions.dao.ExhibitionDAO;
 import com.koba.exhibitions.dao.exception.DBException;
 import com.koba.exhibitions.dao.connection.ConnectionPool;

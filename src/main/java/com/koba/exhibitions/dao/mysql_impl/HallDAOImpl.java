@@ -1,7 +1,7 @@
-package com.koba.exhibitions.dao.impl;
+package com.koba.exhibitions.dao.mysql_impl;
 
 import com.koba.exhibitions.bean.Hall;
-import com.koba.exhibitions.controller.dependencyInjection.Component;
+import com.koba.exhibitions.controller.dependency_injection.Component;
 import com.koba.exhibitions.dao.HallDAO;
 import com.koba.exhibitions.dao.connection.ConnectionPool;
 import com.koba.exhibitions.dao.exception.DBException;
@@ -45,24 +45,48 @@ public class HallDAOImpl implements HallDAO {
     }
 
     @Override
-    public List<Hall> getExhibitionHalls(Integer exhibitionId) throws DBException {
-        List<Hall> exhibitionHalls = new ArrayList<>();
-
+    public List<Hall> getAvailableHalls(String dateFrom, String dateTo) throws DBException {
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        ResultSet rs2;
+
+        List<Hall> halls = new ArrayList<>();
         try {
             con = connectionPool.getConnection();
-            pstmt = con.prepareStatement(GET_EXHIBITION_HALLS_ID);
-            pstmt.setInt(1, exhibitionId);
+            pstmt = con.prepareStatement(GET_AVAILABLE_HALLS);
+            for (int k = 1; k <= 6; k++) {
+                pstmt.setString(k++, dateFrom);
+                pstmt.setString(k, dateTo);
+            }
             rs = pstmt.executeQuery();
-            pstmt = con.prepareStatement(GET_HALL_BY_ID);
             while (rs.next()) {
-                pstmt.setInt(1, rs.getInt(EXHIBITION_HALL_COLUMN_HALL_ID));
-                rs2 = pstmt.executeQuery();
-                if (rs2.next()) {
-                    exhibitionHalls.add(mapHall(rs2));
+                halls.add(mapHall(rs));
+            }
+            logger.info("List of available halls has been successfully obtained");
+        } catch (SQLException ex) {
+            throw new DBException("Could not obtain a list", ex);
+        } finally {
+            close(con, pstmt, rs);
+        }
+        return halls;
+    }
+
+    @Override
+    public List<Hall> getExhibitionHalls(Integer exhibitionId) throws DBException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        List<Hall> exhibitionHalls = new ArrayList<>();
+        try {
+            List<Integer> hallsIds = getExhibitionHallsIds(exhibitionId);
+            con = connectionPool.getConnection();
+            pstmt = con.prepareStatement(GET_HALL_BY_ID);
+            for (Integer id : hallsIds) {
+                pstmt.setInt(1, id);
+                rs = pstmt.executeQuery();
+                if (rs.next()) {
+                    exhibitionHalls.add(mapHall(rs));
                 }
             }
             logger.info("List of exhibition halls has been successfully obtained");
@@ -72,6 +96,27 @@ public class HallDAOImpl implements HallDAO {
             close(con, pstmt, rs);
         }
         return exhibitionHalls;
+    }
+
+    private List<Integer> getExhibitionHallsIds(Integer exhibitionId) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        List<Integer> hallsIds = new ArrayList<>();
+        try {
+            con = connectionPool.getConnection();
+            pstmt = con.prepareStatement(GET_EXHIBITION_HALLS_ID);
+            pstmt.setInt(1, exhibitionId);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                hallsIds.add(rs.getInt(EXHIBITION_HALL_COLUMN_HALL_ID));
+            }
+            logger.info("List of exhibition halls id's has been successfully obtained");
+        } finally {
+            close(con, pstmt, rs);
+        }
+        return hallsIds;
     }
 
     private List<Hall> mapHallsList(ResultSet rs) throws SQLException {

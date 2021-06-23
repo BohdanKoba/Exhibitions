@@ -1,5 +1,6 @@
 package com.koba.exhibitions.controller.command;
 
+import com.koba.exhibitions.controller.dependency_injection.Context;
 import com.koba.exhibitions.controller.service.AccountService;
 import com.koba.exhibitions.dao.exception.DBException;
 import com.koba.exhibitions.bean.RegistrationData;
@@ -15,6 +16,8 @@ import java.io.IOException;
 public class RegistrationCommand implements Command {
     private static final Logger logger = LogManager.getLogger(RegistrationCommand.class);
 
+    private final AccountService accountService = Context.getObject(AccountService.class);
+
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws DBException, IOException, ServletException {
         String login = request.getParameter("login");
@@ -24,7 +27,6 @@ public class RegistrationCommand implements Command {
         String email = request.getParameter("email");
 
         RegistrationData data = new RegistrationData(login, password, firstName, lastName, email);
-        AccountService accountService = new AccountService();
         try {
             accountService.registerAccount(data);
         } catch (LoginExistsException ex) {

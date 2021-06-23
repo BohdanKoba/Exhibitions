@@ -14,13 +14,14 @@ public interface HallDAO {
      */
     List<Hall> getAllHalls() throws DBException;
 
-//    /**
-//     *
-//     * @param hallId hall id
-//     * @return <code>Hall</code> object
-//     * @throws DBException if severe problem with database occurred
-//     */
-//    Hall getHall(Integer hallId) throws DBException;
+    /**
+     *
+     * @param dateFrom start date of the exhibition event
+     * @param dateTo end date of the exhibition event
+     * @return list of <code>Hall</code> objects
+     * @throws DBException if severe problem with database occurred
+     */
+    List<Hall> getAvailableHalls(String dateFrom, String dateTo) throws DBException;
 
     /**
      *

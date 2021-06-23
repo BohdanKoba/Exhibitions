@@ -10,7 +10,7 @@
     <title><fmt:message key="buyTickets"/></title>
     <jsp:include page="/editStyle/pagestyle.jsp"/>
 </head>
-<jsp:include page="fragments/header.jsp"/>
+<jsp:include page="../fragments/header.jsp"/>
 <br>
 <h2 class="center"><fmt:message key="createOrder"/></h2>
 <br>
@@ -85,6 +85,6 @@
     }
 </script>
 </div>
-<jsp:include page="fragments/footer.jsp"/>
+<jsp:include page="../fragments/footer.jsp"/>
 </body>
 </html>

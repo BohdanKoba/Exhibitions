@@ -10,15 +10,10 @@
     <title><fmt:message key="homePage"/></title>
 </head>
 <body>
-<button type="hidden" name="getOrders" value="${contextPath}/app?command=getAccountOrders" onloadstart="getOrdersFunction()"/>
-<script>
-    function getOrdersFunction() {
-        document.getElementById("getOrders").click();
-    }
-</script>
-<jsp:include page="fragments/header.jsp"/>
-<div>
-    <h1 class="center">My info</h1>
+<jsp:include page="../fragments/header.jsp"/>
+<div class="center">
+    <br>
+    <h3 class="center">My info</h3>
     <div>
         <strong><fmt:message key="firstName"/></strong>
     </div>
@@ -36,7 +31,8 @@
     <br>
 </div>
 <div>
-    <h1 class="center"><fmt:message key="myPurchases"/></h1>
+    <br>
+    <h3 class="center"><fmt:message key="myPurchases"/></h3>
     <div>
         <table class="center" id="tableCenter">
             <colgroup>
@@ -55,7 +51,7 @@
                 <th><h3><fmt:message key="quantity"/></h3></th>
                 <th><h3><fmt:message key="total"/></h3></th>
             </tr>
-            <c:forEach items="order" var="${orders}">
+            <c:forEach var="order" items="${orders}">
                 <tr>
                     <td>${order.title}</td>
                     <td>${order.startDate} - ${order.endDate}</td>
@@ -68,6 +64,6 @@
         </table>
     </div>
 </div>
-<jsp:include page="fragments/footer.jsp"/>
+<jsp:include page="../fragments/footer.jsp"/>
 </body>
 </html>

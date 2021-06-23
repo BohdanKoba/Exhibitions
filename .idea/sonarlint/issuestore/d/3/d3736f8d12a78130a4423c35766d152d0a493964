@@ -1,8 +1,29 @@
 
-S	java:S106"9Replace this use of System.out or System.err by a logger.(ÿˆùËüÿÿÿÿ
-S	java:S106"9Replace this use of System.out or System.err by a logger.(½¯ŠŞøÿÿÿÿ
-S	java:S106"9Replace this use of System.out or System.err by a logger.(Í¿ùğùÿÿÿÿ
-S	java:S106"9Replace this use of System.out or System.err by a logger.(¯ÓğÁûÿÿÿÿ
-S	java:S106"9Replace this use of System.out or System.err by a logger.(£¶“¿şÿÿÿÿ
-S	java:S106"9Replace this use of System.out or System.err by a logger.(È°’Öúÿÿÿÿ
-S	java:S106"9Replace this use of System.out or System.err by a logger.(ßÖ êùÿÿÿÿ
+\
+java:S1854":Remove this useless assignment to local variable "dateTo".(™¹ãşÿÿÿÿ8ÓïâĞ¡/
+[
+java:S1854"9Remove this useless assignment to local variable "price".(À„ƒúÿÿÿÿ8¦ñİĞ¡/
+M
+java:S1481"+Remove this unused "dateTo" local variable.(™¹ãşÿÿÿÿ8ÓïâĞ¡/
+^
+java:S1854"<Remove this useless assignment to local variable "dateFrom".(«°Ûùÿÿÿÿ8ÓïâĞ¡/
+J
+java:S1481"-Remove this unused "timeFrom" local variable.(€‡§¸8ÓïâĞ¡/
+Y
+java:S1854"<Remove this useless assignment to local variable "timeFrom".(€‡§¸8ÓïâĞ¡/
+O
+java:S1481"-Remove this unused "dateFrom" local variable.(«°Ûùÿÿÿÿ8ÓïâĞ¡/
+L
+java:S1481"*Remove this unused "price" local variable.(À„ƒúÿÿÿÿ8¦ñİĞ¡/
+H
+java:S1481"+Remove this unused "timeTo" local variable.(œõ·Æ8ÓïâĞ¡/
+M
+java:S1481"0Remove this unused "description" local variable.(¶Ì¸8¦ñİĞ¡/
+W
+java:S1854":Remove this useless assignment to local variable "timeTo".(œõ·Æ8ÓïâĞ¡/
+\
+java:S1854"?Remove this useless assignment to local variable "description".(¶Ì¸8¦ñİĞ¡/
+[
+java:S1854"9Remove this useless assignment to local variable "title".(˜Â›üùÿÿÿÿ8ïÅĞ¡/
+L
+java:S1481"*Remove this unused "title" local variable.(˜Â›üùÿÿÿÿ8ïÅĞ¡/

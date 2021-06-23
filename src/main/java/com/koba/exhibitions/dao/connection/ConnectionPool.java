@@ -57,13 +57,7 @@ public class ConnectionPool {
      * @param rs  ResultSet object to be closed
      */
     public static void close(Connection con, Statement st, ResultSet rs) {
-        if (rs != null) {
-            try {
-                st.close();
-            } catch (Exception ex) {
-                logger.error("Failed to close ResultSet", ex);
-            }
-        }
+        close(rs);
         close(con, st);
     }
 
@@ -77,15 +71,30 @@ public class ConnectionPool {
         if (st != null) {
             try {
                 st.close();
-            } catch (Exception ex) {
+            } catch (SQLException ex) {
                 logger.error("Failed to close Statement", ex);
             }
         }
         if (con != null) {
             try {
                 con.close();
-            } catch (Exception ex) {
+            } catch (SQLException ex) {
                 logger.error("Failed to close Connection", ex);
+            }
+        }
+    }
+
+    /**
+     * Closes ResultSet resource.
+     *
+     * @param rs  ResultSet object to be closed
+     */
+    public static void close(ResultSet rs) {
+        if (rs != null) {
+            try {
+                rs.close();
+            } catch (SQLException ex) {
+                logger.error("Failed to close ResultSet", ex);
             }
         }
     }
