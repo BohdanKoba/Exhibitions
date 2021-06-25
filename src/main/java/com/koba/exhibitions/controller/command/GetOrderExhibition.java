@@ -17,7 +17,7 @@ public class GetOrderExhibition implements Command {
         ExhibitionService exhibitionService = new ExhibitionService();
         Exhibition exhibition = exhibitionService.getExhibition(id);
         request.setAttribute("exhibition", exhibition);
-        request.getRequestDispatcher("view/buyTickets.jsp").forward(request, response);
+        request.getRequestDispatcher("view/client/buyTickets.jsp").forward(request, response);
     }
 
 }

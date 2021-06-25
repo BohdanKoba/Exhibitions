@@ -1,0 +1,200 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema exhibitions
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema exhibitions
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `exhibitions` DEFAULT CHARACTER SET utf8 ;
+USE `exhibitions` ;
+
+-- -----------------------------------------------------
+-- Table `exhibitions`.`account`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `exhibitions`.`account` ;
+
+CREATE TABLE IF NOT EXISTS `exhibitions`.`account` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `login` VARCHAR(25) NOT NULL,
+  `password` VARCHAR(20) NOT NULL,
+  `first_name` VARCHAR(50) NOT NULL,
+  `last_name` VARCHAR(50) NOT NULL,
+  `email` VARCHAR(255) NOT NULL,
+  `role` ENUM('admin', 'client') NOT NULL DEFAULT 'client',
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `login_UNIQUE` (`login` ASC) VISIBLE);
+
+
+-- -----------------------------------------------------
+-- Table `exhibitions`.`hall`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `exhibitions`.`hall` ;
+
+CREATE TABLE IF NOT EXISTS `exhibitions`.`hall` (
+  `id` INT NOT NULL,
+  `hall_name` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `name_UNIQUE` (`hall_name` ASC) VISIBLE);
+
+
+-- -----------------------------------------------------
+-- Table `exhibitions`.`exhibition`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `exhibitions`.`exhibition` ;
+
+CREATE TABLE IF NOT EXISTS `exhibitions`.`exhibition` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(255) NOT NULL,
+  `description` VARCHAR(1024) NOT NULL,
+  `price` INT NOT NULL,
+  `start_date` DATE NOT NULL,
+  `end_date` DATE NOT NULL,
+  `opening_time` TIME NOT NULL,
+  `closing_time` TIME NOT NULL,
+  `status` ENUM('active', 'canceled') NOT NULL DEFAULT 'active',
+  `tickets_sold` INT NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`));
+
+
+-- -----------------------------------------------------
+-- Table `exhibitions`.`account_order`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `exhibitions`.`account_order` ;
+
+CREATE TABLE IF NOT EXISTS `exhibitions`.`account_order` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `account_id` INT NULL,
+  `exhibition_id` INT NOT NULL,
+  `quantity` TINYINT(1) NOT NULL,
+  `bill` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_order_account1_idx` (`account_id` ASC) VISIBLE,
+  INDEX `fk_account_order_exhibition1_idx` (`exhibition_id` ASC) VISIBLE,
+  CONSTRAINT `fk_order_account1`
+    FOREIGN KEY (`account_id`)
+    REFERENCES `exhibitions`.`account` (`id`)
+    ON DELETE SET NULL
+    ON UPDATE RESTRICT,
+  CONSTRAINT `fk_account_order_exhibition1`
+    FOREIGN KEY (`exhibition_id`)
+    REFERENCES `exhibitions`.`exhibition` (`id`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT);
+
+
+-- -----------------------------------------------------
+-- Table `exhibitions`.`exhibition_hall`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `exhibitions`.`exhibition_hall` ;
+
+CREATE TABLE IF NOT EXISTS `exhibitions`.`exhibition_hall` (
+  `exhibition_id` INT NOT NULL,
+  `hall_id` INT NOT NULL,
+  PRIMARY KEY (`exhibition_id`, `hall_id`),
+  INDEX `fk_exhibition_has_hall_hall1_idx` (`hall_id` ASC) VISIBLE,
+  INDEX `fk_exhibition_has_hall_exhibition1_idx` (`exhibition_id` ASC) VISIBLE,
+  CONSTRAINT `fk_exhibition_has_hall_exhibition1`
+    FOREIGN KEY (`exhibition_id`)
+    REFERENCES `exhibitions`.`exhibition` (`id`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT,
+  CONSTRAINT `fk_exhibition_has_hall_hall1`
+    FOREIGN KEY (`hall_id`)
+    REFERENCES `exhibitions`.`hall` (`id`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT);
+
+USE `exhibitions`;
+
+DELIMITER $$
+
+USE `exhibitions`$$
+DROP TRIGGER IF EXISTS `exhibitions`.`account_order_AFTER_INSERT` $$
+USE `exhibitions`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `exhibitions`.`account_order_AFTER_INSERT` AFTER INSERT ON `account_order` FOR EACH ROW
+BEGIN
+	UPDATE exhibition e SET tickets_sold=(e.tickets_sold + new.quantity) WHERE e.id=new.exhibition_id;
+END$$
+
+
+DELIMITER ;
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- -----------------------------------------------------
+-- Data for table `exhibitions`.`account`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `exhibitions`;
+INSERT INTO `exhibitions`.`account` (`id`, `login`, `password`, `first_name`, `last_name`, `email`, `role`) VALUES (1, 'admin', 'admin', 'Bohdan', 'Koba', 'admin@gmail.com', 'admin');
+INSERT INTO `exhibitions`.`account` (`id`, `login`, `password`, `first_name`, `last_name`, `email`, `role`) VALUES (2, 'q', 'q', 'Ivan', 'Ivanov', 'ivanov@gmail.com', 'client');
+INSERT INTO `exhibitions`.`account` (`id`, `login`, `password`, `first_name`, `last_name`, `email`, `role`) VALUES (3, 'petrov', 'ppass', 'Максим', 'Петров', 'petrov@gmail.com', 'client');
+INSERT INTO `exhibitions`.`account` (`id`, `login`, `password`, `first_name`, `last_name`, `email`, `role`) VALUES (4, 'therock', 'pass', 'Dwayne', 'Johnson', 'therock@gmail.com', 'client');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `exhibitions`.`hall`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `exhibitions`;
+INSERT INTO `exhibitions`.`hall` (`id`, `hall_name`) VALUES (1, 'hall 1');
+INSERT INTO `exhibitions`.`hall` (`id`, `hall_name`) VALUES (2, 'hall 2');
+INSERT INTO `exhibitions`.`hall` (`id`, `hall_name`) VALUES (3, 'hall 3');
+INSERT INTO `exhibitions`.`hall` (`id`, `hall_name`) VALUES (4, 'hall 4');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `exhibitions`.`exhibition`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `exhibitions`;
+INSERT INTO `exhibitions`.`exhibition` (`id`, `title`, `description`, `price`, `start_date`, `end_date`, `opening_time`, `closing_time`, `status`, `tickets_sold`) VALUES (1, 'Van Gogh Alive', 'Prepare to transcend time and space as you accompany Van Gogh on a journey through the Netherlands, Arles, Saint Rémy and Auvers-sur-Oise, where he created many of his timeless masterpieces. Set to an evocative classical score, a thrilling display of inspirational images transforms every surface that surrounds you in what has been described as an \"unforgettable multi-sensory experience\". Van Gogh\'s masterpieces come to life, giving you the sensation of walking right into his paintings, a feeling that is simultaneously enchanting, entertaining and educational.', 250, '2021-07-01', '2021-09-01', '9:00', '17:00', 'active', 0);
+INSERT INTO `exhibitions`.`exhibition` (`id`, `title`, `description`, `price`, `start_date`, `end_date`, `opening_time`, `closing_time`, `status`, `tickets_sold`) VALUES (2, 'The Making of Rodin', 'Working at the turn of the 20th century, Auguste Rodin created sculptures with an expressiveness and emotion rarely seen before. This major exhibition offers a unique insight into Rodin’s processes, highlighting the crucial role of plaster in his practice. The exhibition evokes the informal atmosphere of the studio, where you will discover lesser-known pieces and new aspects of his most iconic works.', 150, '2021-07-01', '2021-07-30', '9:00', '17:00', 'active', 0);
+INSERT INTO `exhibitions`.`exhibition` (`id`, `title`, `description`, `price`, `start_date`, `end_date`, `opening_time`, `closing_time`, `status`, `tickets_sold`) VALUES (3, 'Lynette Yiadom-Boakye: Fly In League With The Night', 'Lynette Yiadom-Boakye is a British artist and writer acclaimed for her enigmatic portraits of fictitious people. This exhibition brings together around 80 works from 2003 to the present day in the most extensive survey of the artist’s career to date.', 200, '2021-03-01', '2021-04-30', '10:00', '18:00', 'active', 0);
+INSERT INTO `exhibitions`.`exhibition` (`id`, `title`, `description`, `price`, `start_date`, `end_date`, `opening_time`, `closing_time`, `status`, `tickets_sold`) VALUES (4, 'The New Woman Behind the Camera', 'The iconic New Woman—modern, independent, stylish, creative, and confident—was a revolutionary model for women across the globe. Featuring more than 120 international photographers, The New Woman Behind the Camera explores the diverse “new women” who embraced photography as a mode of professional and personal expression from the 1920s to the 1950s. This groundbreaking exhibition will reveal the significant impact women have had on the history of modern photography.', 100, '2021-09-15', '2021-10-31', '9:30', '18:30', 'active', 0);
+INSERT INTO `exhibitions`.`exhibition` (`id`, `title`, `description`, `price`, `start_date`, `end_date`, `opening_time`, `closing_time`, `status`, `tickets_sold`) VALUES (5, 'Faithful and Fearless: Portraits of Dogs', 'An extremely canny attempt to get our doggo-obsessed generation looking at classical paintings, this excellent show looks at the representation of Very Good Boys from antiquity to today.', 200, '2021-11-01', '2021-12-15', '11:00', '18:00', 'active', 0);
+INSERT INTO `exhibitions`.`exhibition` (`id`, `title`, `description`, `price`, `start_date`, `end_date`, `opening_time`, `closing_time`, `status`, `tickets_sold`) VALUES (6, 'A Visual History of Hip-Hop', 'A Visual History of Hip-Hop explores four decades of photography, from the late 1970s to today, documenting a revolution not just in music, but in politics, race relations, fashion, and culture. The images — many of them displayed alongside contact sheets from the session — give us a rare glimpse into the creative process behind some of hip-hop’s most iconic photos.', 175, '2021-11-01', '2021-12-15', '9:30', '17:00', 'active', 0);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `exhibitions`.`account_order`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `exhibitions`;
+INSERT INTO `exhibitions`.`account_order` (`id`, `account_id`, `exhibition_id`, `quantity`, `bill`) VALUES (1, 3, 2, 3, 450);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `exhibitions`.`exhibition_hall`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `exhibitions`;
+INSERT INTO `exhibitions`.`exhibition_hall` (`exhibition_id`, `hall_id`) VALUES (1, 1);
+INSERT INTO `exhibitions`.`exhibition_hall` (`exhibition_id`, `hall_id`) VALUES (1, 2);
+INSERT INTO `exhibitions`.`exhibition_hall` (`exhibition_id`, `hall_id`) VALUES (2, 3);
+INSERT INTO `exhibitions`.`exhibition_hall` (`exhibition_id`, `hall_id`) VALUES (2, 4);
+INSERT INTO `exhibitions`.`exhibition_hall` (`exhibition_id`, `hall_id`) VALUES (3, 3);
+INSERT INTO `exhibitions`.`exhibition_hall` (`exhibition_id`, `hall_id`) VALUES (4, 4);
+INSERT INTO `exhibitions`.`exhibition_hall` (`exhibition_id`, `hall_id`) VALUES (5, 1);
+INSERT INTO `exhibitions`.`exhibition_hall` (`exhibition_id`, `hall_id`) VALUES (5, 3);
+INSERT INTO `exhibitions`.`exhibition_hall` (`exhibition_id`, `hall_id`) VALUES (5, 4);
+INSERT INTO `exhibitions`.`exhibition_hall` (`exhibition_id`, `hall_id`) VALUES (6, 2);
+
+COMMIT;
+

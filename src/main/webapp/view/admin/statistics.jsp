@@ -19,9 +19,9 @@
         <table id="tableCenter">
             <colgroup>
                 <col span="1" style="width: 320px;">
-                <col span="1" style="width: 180px;">
-                <col span="1" style="width: 120px;">
-                <col span="1" style="width: 110px;">
+                <col span="1" style="width: 150px;">
+                <col span="1" style="width: 130px;">
+                <col span="1" style="width: 130px;">
                 <col span="1" style="width: 150px;">
             </colgroup>
             <tr>

@@ -32,14 +32,6 @@
         <input type="hidden" name="accountId" value="${account.id}">
         <input type="hidden" name="exhibitionId" value="${exhibition.id}">
         <table class="center" id="tableCenter">
-            <colgroup>
-                <col span="1" style="width: 600px;">
-                <col span="1" style="width: 150px;">
-                <col span="1" style="width: 110px;">
-                <col span="1" style="width: 120px;">
-                <col span="1" style="width: 150px;">
-                <col span="1" style="width: 120px;">
-            </colgroup>
             <tr>
                 <th><h3><fmt:message key="title"/></h3></th>
                 <th><h3><fmt:message key="date"/></h3></th>
